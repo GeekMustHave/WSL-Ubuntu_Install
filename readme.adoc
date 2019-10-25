@@ -1,0 +1,47 @@
+= Windows Subsystem for Linux+++<br>+++Install and Customize Guide
+John Schuster <John.schuster@PhoenixWorkgroup.com>
+v2.1b, 10/25/2019: Doco Type
+:Author: John HR Schuster
+:Company: Phoenix Learning Labs
+:toc: left
+:toclevels: 4:
+:imagesdir: ./images
+:pagenums:
+:numbered: 
+:chapter-label: 
+:experimental:
+:source-hightlighter: coderay
+:icons: font
+:docdir: */documents
+:github: https://github.com/GeekMustHave/Github repository
+:linkattrs:
+:seclinks:
+:title-logo-image: ./images/create-doco_gmh-blogArticle-cover.png
+
+Preamble paragraph goes here
+
+== Introduction
+
+
+
+
+
+<<<<
+== Document History
+
+.Document History
+[cols='2,2,2,6' options='header']
+|===
+| Date  | Version | Author | Description
+| 10/25/2019 | V2.1b | JHRS |  Initial version
+|===
+
+
+
+
+////
+This template created by GeekMustHave
+////
+
+
+
