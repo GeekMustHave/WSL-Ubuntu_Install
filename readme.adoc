@@ -388,6 +388,219 @@ The PDF generated file `sample.pdf`  can be opened with a PDF Viewer or some bro
 image::adoc-pdf.png[ASCIIDoctor PDF, align='center']
  
 
+== Transfer Win 10 - Ubuntu
+
+The easiest way to move or copy files between Windows 10 and the Ubuntu instance is to use Media Commander and go to `/mnt` folder where all the drives in Windows 10 will be shown.
+
+.Windows 10 - Ubuntu transfer
+image::win10-ubuntu.png[Windows 10 - Ubuntu transfer, align='center']
+ 
+== Node installation
+
+Working with Node and JavaScript will require the i nstallation of Node.
+
+At the last update of this guide, Node.js 10.15.3 is the LTS release available.
+
+NOTE: When installing `node` the Python language and Python libraries iwll be updated.
+
+NOTE: When `Node` is install the Node Package Managr `npm` will also be installed
+
+.Node Install
+[source,bash]
+----
+jschust2@Adlantado:~$ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+[sudo] password for jschust2:
+Sorry, try again.
+[sudo] password for jschust2:
+
+## Installing the NodeSource Node.js 10.x repo...
+
+## Populating apt-get cache...
+
++ apt-get update
+Get:1 http://security.ubuntu.com/ubuntu bionic-security InRelease [88
+... and a tone more ..
+Fetched 5352 B in 2s (2405 B/s)
+Reading package lists... Done
+
+## Run `sudo apt-get install -y nodejs` to install Node.js 10.x and npm
+
+jschust2@Adlantado:~$ sudo apt-get install -y nodejs
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  libpython-stdlib libpython2.7-minimal libpython2.7-stdlib python python-minimal python2.7
+  python2.7-minimal
+....  and a bunch more ....
+Setting up libpython-stdlib:amd64 (2.7.15~rc1-1) ...
+Setting up python (2.7.15~rc1-1) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+Processing triggers for mime-support (3.60ubuntu1) ...
+jschust2@Adlantado:~$
+----
+
+To verify that Node has been insalled run the following commands
+
+.Verify Node
+[source,bash]
+----
+jschust2@Adlantado:~$ node -v
+v10.17.0
+jschust2@Adlantado:~$ npm -v
+6.11.3
+jschust2@Adlantado:~$
+----
+
+
+== Apache Web Server
+
+Apache is one of the most used web servers on the Internet. 
+
+Some simple alternative to Apache are XAMPP or WAMPServer, however, they are not meant to work for any production environment .
+
+To install Apache use the following commands
+
+.Apache INstallation
+[source,css]
+----
+jschust2@Adlantado:~$  sudo apt-get install apache2
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  apache2-bin apache2-data apache2-utils libapr1 libaprutil1 libaprutil1-dbd-sqlite3 libaprutil1-ldap
+  liblua5.2-0 ssl-cert
+Suggested packages:
+  apache2-doc apache2-suexec-pristine | apache2-suexec-custom openssl-blacklist
+The following NEW packages will be installed:
+  apache2 apache2-bin apache2-data apache2-utils libapr1 libaprutil1 libaprutil1-dbd-sqlite3
+  libaprutil1-ldap liblua5.2-0 ssl-cert
+0 upgraded, 10 newly installed, 0 to remove and 0 not upgraded.
+Need to get 1730 kB of archives.
+After this operation, 6982 kB of additional disk space will be used.
+Do you want to continue? [Y/n]   
+Get:1 http://archive.ubuntu.com/ubuntu bionic/main amd64 libapr1 amd64 1.6.3-2 [90.9 kB]
+Get:2 http://archive.ubuntu.com/ubuntu bionic/main amd64 libaprutil1 amd64 1.6.1-2 [84.4 kB]
+Get:3 http://archive.ubuntu.com/ubuntu bionic/main amd64 libaprutil1-dbd-sqlite3 amd64 1.6.1-2 [10.6 kB]
+.... and a tone more ...
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
+Processing triggers for systemd (237-3ubuntu10.31) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+Processing triggers for ufw (0.36-0ubuntu0.18.04.1) ...
+Processing triggers for ureadahead (0.100.0-21) ...
+jschust2@Adlantado:~$   
+----
+
+To start the Apache web service use the following commands.
+
+NOTE: The first time you start Apache there will be a Windows firewall warning, Just agree to it.
+
+.Start Apache
+[source,bash]
+----
+jschust2@Adlantado:~$ sudo service apache2 start
+ * Starting Apache httpd web server apache2                                                                 *
+----
+
+To verify that Apache is running use a Windows 10 browser and open the `127.0.0.1:80` page
+
+.Apache Test
+image::apache-runing.png[Apache Test, align='center']
+ 
+== MySQL database
+
+The MySQL database is one of the eaiser relational database systems to install and use.
+
+To install MySQL use the following commands.
+
+.MySQL Installation
+[source,css]
+----
+jschust2@Adlantado:~$  sudo apt-get install mysql-server mysql-client
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  libaio1 libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-6 libfcgi-perl
+  libhtml-parser-perl libhtml-tagset-perl libhtml-template-perl libhttp-date-perl libhttp-message-perl
+  libio-html-perl liblwp-mediatypes-perl libtimedate-perl liburi-perl mysql-client-5.7
+  mysql-client-core-5.7 mysql-common mysql-server-5.7 mysql-server-core-5.7
+Suggested packages:
+  libdata-dump-perl libipc-sharedcache-perl libwww-perl mailx tinyca
+The following NEW packages will be installed:
+  libaio1 libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-6 libfcgi-perl
+  libhtml-parser-perl libhtml-tagset-perl libhtml-template-perl libhttp-date-perl libhttp-message-perl
+  libio-html-perl liblwp-mediatypes-perl libtimedate-perl liburi-perl mysql-client mysql-client-5.7
+  mysql-client-core-5.7 mysql-common mysql-server mysql-server-5.7 mysql-server-core-5.7
+0 upgraded, 22 newly installed, 0 to remove and 0 not upgraded.
+Need to get 21.1 MB of archives.
+After this operation, 162 MB of additional disk space will be used.
+Do you want to continue? [Y/n]  
+... ton of stuff **
+Setting up mysql-server (5.7.27-0ubuntu0.18.04.1) ...
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
+Processing triggers for systemd (237-3ubuntu10.31) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+Processing triggers for ureadahead (0.100.0-21) ...
+jschust2@Adlantado:~$  
+----
+
+To start MySQL use the following commands.
+
+.MySQL Start
+[source,css]
+----
+jschust2@Adlantado:~$ sudo service mysql start
+ * Starting MySQL database server mysqld                                                                   No directory, logging in with HOME=/
+----
+
+
+To verify that MySQL is working run the followinf commands
+
+.MySQL Testing
+[source,css]
+----
+Insert code herejschust2@Adlantado:~$ sudo mysql -u root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 4
+Server version: 5.7.27-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> 
+
+----
+
+
+To create a MySQL user for testing use the following SQL commands withing the MySQL Client
+
+NOTE: The user is `jschust2` with the lame password of `password`, probably should change that later.
+
+.MySQL New User
+[source,bash]
+----
+mysql> CREATE USER 'jschust2'@'localhost' IDENTIFIED BY 'password';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'jschust2'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>               
+----
+
+
+
+
 
 
 
