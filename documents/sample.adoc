@@ -1,0 +1,57 @@
+= Example of ASCIIDoctor file
+John Schuster <John.schuster@PhoenixWorkgroup.com>
+v2.1b, 10/25/2019: Doco Sample
+:toc: left
+
+This is an example of an ASCIIDoctor formatted text file.
+ASCIIDoctor is similar to `Markdown` syntax but with much more power and flexibility.
+
+== Introduction
+
+ASCIIDoctor syntax included the ability *bold* text and _underlined_ text.
+
+Unordered Lists
+
+* Dog food
+* Bread 
+* Milk
+* Paper towels
+* Kidney Beans
+
+Ordered List
+
+. Wash the car
+. Dry the car
+. Put wax on car
+. Buff the car out
+. Take picture of car
+
+== Tutorials
+
+There are some great tutorials on using ASCIIDoctor 
+
+.GeekMust Have Using ASCIIDoctor
+video::0kNOrgTuQsE[youtube, width=640, height=480, start=0, end=999999]
+
+== ASCIIDoctor Resources
+
+There are a ton of ASCIIDoctor resources including the links below
+
+.ADOC resources
+[cols='4,8,2' options='header']
+|===
+| Name | Description | Link
+| Writers Guide  | guide provides a gentle introduction to AsciiDoc, 
+a plain text documentation syntax and processor. 
+This introduction is intended for anyone who wants to reduce the effort required to write and publish content,
+ whether for technical documentation, 
+ articles, web pages or good ol'-fashioned prose.
+| link:https://asciidoctor.org/docs/asciidoc-writers-guide/[ Link, window="_blank"]
+
+| Quick Syntax | AsciiDoc is a lightweight markup language for authoring notes, 
+articles, documentation, books, web pages, slide decks and man pages in plain text. 
+This guide is a quick reference for the common AsciiDoc document and text formatting markup.
+| link:https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[ Link, window="_blank"]
+| GitHib resources | A curated list of Awesome links and references on ASCIIDoctor 
+| link:https://github.com/bodiam/awesome-asciidoc/[ Link, window="_blank"]
+|===

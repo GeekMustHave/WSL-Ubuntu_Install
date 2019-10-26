@@ -12,7 +12,7 @@ v2.1b, 10/25/2019: Doco Type
 :experimental:
 :source-hightlighter: coderay
 :icons: font
-:docdir: */documents
+:docdir: ./documents
 :github: https://github.com/GeekMustHave/Github repository
 :linkattrs:
 :seclinks:
@@ -21,6 +21,377 @@ v2.1b, 10/25/2019: Doco Type
 Preamble paragraph goes here
 
 == Introduction
+
+Windows Subsystem for Linux gives Windows users the ability to run a Linux instance on top of the Windows instance.
+It does have some limitations but this guide are my notes for install and customization.
+
+== Getting Started
+
+The interface to Windows Subsystem for Linus (WSL) in the Terminal window.
+This means there are some basic commands and utilities you need to use and customize it.
+
+=== Installation
+
+Ubuntu 18.04 can be installed on Windows 10 from the Microsoft Store.  The Ubuntu terminal and command-line-prompt become the user interface.
+
+During the installation you will need to pick a Ubuntu user ID and password.
+Do I need to mention, not to forget them?
+
+.Ubuntu on Microsoft Store
+image::ubuntu-store.png[Ubuntu on Microsoft Store, alt='Store', align='center']
+
+To start Ubuntu, use `ubuntu1804` on the command-line prompt (cmd.exe), or click on the Ubuntu tile in the Start Menu.
+ 
+The very first thing after the installation has completed is to is to `Update` the Ubuntu installation.
+
+.Update Command
+[source,bash]
+----
+jschust2@Adlantado:~$ sudo apt update
+[sudo] password for jschust2:
+Hit:1 http://archive.ubuntu.com/ubuntu bionic InRelease
+Get:2 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]
+Get:3 http://archive.ubuntu.com/ubuntu bionic-updates InRelease [88.7 kB]
+.... on so on
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+122 packages can be upgraded. Run 'apt list --upgradable' to see them.
+----
+
+The second thing you should do is to `Upgrade` the Ubuntu installation.
+Be prepared as this will take some time to complete.
+
+About half way through the `upgrade` you will asked if you want have services automatically restarted, anwser `Yes`.
+
+.Upgrade
+[source,bash]
+----
+jschust2@Adlantado:~$ sudo apt upgrade
+[sudo] password for jschust2:
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+Calculating upgrade... Done
+The following NEW packages will be installed:
+  dbus-x11 fontconfig-config fonts-dejavu-core libasyncns0 libdrm-amdgpu1 libdrm-intel1 libdrm-nouveau2 libdrm-radeon1
+  libflac8 libfontconfig1 libfontenc1 libgl1 libgl1-mesa-dri libgl1-mesa-glx libglapi-mesa libglvnd0 libglx-mesa0
+  libglx0 libice6 libllvm8 libogg0 libpciaccess0 libpulse0 libpulsedsp libsensors4 libsm6 libsndfile1 libvorbis0a
+  libvorbisenc2 libx11-xcb1 libxaw7 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-shape0 libxcb-sync1
+  libxcomposite1 libxdamage1 libxfixes3 libxft2 libxi6 libxinerama1 libxmu6 libxpm4 libxrandr2 libxrender1
+  libxshmfence1 libxt6 libxtst6 libxv1 libxxf86dga1 libxxf86vm1 pulseaudio-utils x11-common x11-utils
+The following packages will be upgraded:
+  apport apt apt-utils base-files bash bind9-host bsdutils bzip2 cloud-init curl dbus distro-info-data dmeventd
+  dmsetup dnsutils dpkg e2fsprogs fdisk friendly-recovery gcc-8-base grep initramfs-tools initramfs-tools-bin
+  initramfs-tools-core iputils-ping iputils-tracepath landscape-common language-selector-common libapt-inst2.0
+  libapt-pkg5.0 libbind9-160 libblkid1 libbz2-1.0 libcom-err2 libcurl3-gnutls libcurl4 libdb5.3 libdbus-1-3
+  libdevmapper-event1.02.1 libdevmapper1.02.1 libdns-export1100 libdns1100 libdrm-common libdrm2 libelf1 libexpat1
+  libext2fs2 libfdisk1 libgcc1 libglib2.0-0 libglib2.0-data libgnutls30 libirs160 libisc-export169 libisc169
+  libisccc160 libisccfg160 libldap-2.4-2 libldap-common liblvm2app2.2 liblvm2cmd2.02 liblwres160 libmount1 libmspack0
+  libnss-systemd libpam-systemd libprocps6 libpython3.6 libpython3.6-minimal libpython3.6-stdlib libseccomp2
+  libsmartcols1 libsqlite3-0 libss2 libssl1.1 libstdc++6 libsystemd0 libudev1 libuuid1 libxslt1.1 libzstd1 lvm2 mount
+  netplan.io nplan open-vm-tools openssl patch procps python3-apport python3-cryptography python3-distupgrade
+  python3-gdbm python3-jinja2 python3-problem-report python3-software-properties python3.6 python3.6-minimal snapd
+  software-properties-common sosreport sudo systemd systemd-sysv tmux tzdata ubuntu-minimal
+  ubuntu-release-upgrader-core ubuntu-server ubuntu-standard ubuntu-wsl udev update-notifier-common util-linux
+  uuid-runtime vim vim-common vim-runtime vim-tiny wslu xkb-data xxd
+122 upgraded, 56 newly installed, 0 to remove and 0 not upgraded.
+Need to get 76.9 MB of archives.
+After this operation, 230 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+----
+
+== File Explorer (Midnight Commander)
+
+Because I don't like to type in Linux command to change directory or launch commands I reply on a File Explorer called Midmight Commander.
+
+It is a dual pane file explorer with function key control over copy, editing and managing the Ubuntu files.
+
+.Midnight Commander Install
+[source,bash]
+----
+jschust2@Adlantado:~$ sudo apt install mc
+[sudo] password for jschust2:
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  libssh2-1 mc-data unzip
+Suggested packages:
+  arj catdvi | texlive-binaries dbview djvulibre-bin genisoimage gv imagemagick libaspell-dev links | w3m | lynx
+  odt2txt poppler-utils python python-boto python-tz xpdf | pdf-viewer zip
+The following NEW packages will be installed:
+  libssh2-1 mc mc-data unzip
+0 upgraded, 4 newly installed, 0 to remove and 0 not upgraded.
+Need to get 1952 kB of archives.
+After this operation, 8099 kB of additional disk space will be used.
+Do you want to continue? [Y/n]
+----
+
+After the MC installation has completed, run it by typing `mc`.
+
+The Midnight Commander user interface looks like
+
+.Midnight Command UI
+image::mc.png[Midnight Command UI, alt='MC', align='center']
+
+The first time you use the editor I use the Nano editor.
+ 
+== Customize startup (.bashrc)
+
+The `.bashrc` is the startup file for the Ubuntu command line environment environment.
+By making some simple changed to this file you can make the interface much more efficient and cute.
+
+Using MC `edit` the file `.bashrc`
+
+Change the prompt to colored.
+
+.Force Color Prompt
+image::force-color.png[Force Color Prompt, alt='Color', align='center']
+ 
+Make the GCC error and warning display in color.
+
+.GCC Color
+image::gcc-color.png[GCC Color, alt='GCC', align='center']
+ 
+Then save the `.bashrc` file, kbd:[Ctrl-O], kbd:[Enter]  followed by kbd:[Ctrl-X]
+
+== Screen Fetch 
+
+When the Ubuntu environment starts up I like to see information about this instance of Ubuntu.
+Information like user name, Ubuntu version, type CPU and memeory.
+
+The `screenfetch` command is good for this and needs to be installed.
+
+Please download the latest script revision from Github. The version installed with `apt` is outdated.
+
+The commands to do the Screenfetch install are
+
+.Screenfetch Commands
+[source,bash]
+----
+wget https://raw.githubusercontent.com/KittyKatt/screenFetch/master/screenfetch-dev <1>
+chmod +x screenfetch-dev <2>
+sudo mv screenfetch-dev /usr/bin/screenfetch <3>
+----
+<1> Download the correct Screenfetch from GiyHub
+<2> Make that new file executable
+<3> Move and rename the new command to the system command folder `/usr/bin`
+
+
+
+.Screenfetch install
+[source,bash]
+----
+jschust2@Adlantado:~$ wget https://raw.githubusercontent.com/KittyKatt/screenFetch/master/screenfetch-dev
+Will not apply HSTS. The HSTS database must be a regular and non-world-writable file.
+ERROR: could not open HSTS store at '/home/jschust2/.wget-hsts'. HSTS will be disabled.
+--2019-10-25 18:48:38--  https://raw.githubusercontent.com/KittyKatt/screenFetch/master/screenfetch-dev
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.0.133, 151.101.64.133, 151.101.128.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.0.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 244084 (238K) [text/plain]
+Saving to: ‘screenfetch-dev.1’
+
+screenfetch-dev.1             100%[=================================================>] 238.36K  --.-KB/s    in 0.07s
+
+2019-10-25 18:48:38 (3.12 MB/s) - ‘screenfetch-dev.1’ saved [244084/244084]
+
+jschust2@Adlantado:~$ chmod +x screenfetch-dev
+jschust2@Adlantado:~$ sudo mv screenfetch-dev /usr/bin/screenfetch
+[sudo] password for jschust2:
+jschust2@Adlantado:~$                             
+----
+
+To test the new `screenfetch` command
+
+.Screenfetch Example
+image::screenfetch-example.png[Screenfetch Example, align='center']
+ 
+
+
+Add this new command to the `.bashrc` file by opening it and adding the command and saving the file.
+
+.Edit .bashrc
+image::screenfetch-install.png[Edit .bashrc, alt='Bashrc', align='center']
+ 
+To verify that the new `screenfetch` and the `.bashrc` have worked enter
+
+   exec bash
+
+
+== Dialog (Menus)
+
+Because this Ubuntu instance is command line only it would be nice to have a mneu system that looks almost like a GUI.
+
+The utility for this is called `dialog` and is used in bash shell scripts to help make great looking menus.
+
+The menu below was generated from the `tmenu.sh` shell script.
+
+.Dialog GUI Example
+image::dialog-menu.png[Dialog GUI Example, align='center']
+ 
+.Dialog Installation
+[source,bash]
+----
+jschust2@Adlantado:~$ sudo apt install dialog
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following NEW packages will be installed:
+  dialog
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 217 kB of archives.
+After this operation, 1149 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu bionic/universe amd64 dialog amd64 1.3-20171209-1 [217 kB]
+Fetched 217 kB in 1s (256 kB/s)
+Selecting previously unselected package dialog.
+(Reading database ... 29678 files and directories currently installed.)
+Preparing to unpack .../dialog_1.3-20171209-1_amd64.deb ...
+Unpacking dialog (1.3-20171209-1) ...
+Setting up dialog (1.3-20171209-1) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+jschust2@Adlantado:~$                                          
+----
+
+To verify that `dialog` has been installed type
+
+   dialog
+
+A few pages of Dialog aoptions will be displayed.
+This document is not meant to be a tutorial on how to create Dialog menus so an example may be the best instruction.
+
+The following `tmenu.sh` bash script uses the dialog commands to build a simple menu seen in the snapshot above.
+This is just a short example of some of the powerful commands in the `dialog` utility.
+
+Create a new file named `tmenu.sh` and copy the following text into it.
+
+.tmenu.sh Dialog script
+[source,bash]
+----
+include::./documents/tmenu.sh[]
+----
+
+To download the `tmenu.sh` click on this link:./documents/tmenu.sh[ link]
+
+After the file has been created it must be make executagle with the command
+
+   chmod +x tmenu.sh
+
+Then to run the Bash shell script use the command
+
+   ./tmenu.sh
+
+
+== ASCIIdoctor 
+
+ASCIIDcotor is a tool chain when used with an text editor can create very well formatted documentation that can be used in a web page or generated into a PDF.
+
+This entire installation guide was written with ASCIIDoctor formatted text file.
+
+To download the `readme.adoc` file, for this document, use the following link:./readme.adoc[ link, window="_blank"]
+
+The installation of `ASCIIDoctor` will include the installation of Ruby and GEM the Ruby package manager.
+`ASCIIDoctor` produces a HTML formatted file that can be viewed in a browser or copied to a web server.
+
+  
+.ASCIIDoctor installation
+[source,bash]
+----
+jschust2@Adlantado:~$ sudo apt install asciidoctor
+[sudo] password for jschust2:
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  fonts-lato javascript-common libjs-jquery libruby2.5 rake ruby ruby-did-you-mean ruby-minitest ruby-net-telnet
+  ruby-power-assert ruby-test-unit ruby2.5 rubygems-integration zip
+Suggested packages:
+  apache2 | lighttpd | httpd ri ruby-dev bundler
+The following NEW packages will be installed:
+  asciidoctor fonts-lato javascript-common libjs-jquery libruby2.5 rake ruby ruby-did-you-mean ruby-minitest
+  ruby-net-telnet ruby-power-assert ruby-test-unit ruby2.5 rubygems-integration zip
+0 upgraded, 15 newly installed, 0 to remove and 0 not upgraded.
+Need to get 6493 kB of archives.
+After this operation, 29.4 MB of additional disk space will be used.
+Do you want to continue? [Y/n]                                                   
+----
+
+To verify `ASCIIDoctor`    was installed use the following command
+
+.Test ASCIIDoctor
+[source,bash]
+----
+jschust2@Adlantado:~$ asciidoctor -v
+Asciidoctor 1.5.5 [http://asciidoctor.org]
+Runtime Environment (ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux-gnu]) (lc:UTF-8 fs:UTF-8 in:- ex:UTF-8)
+----
+
+The installation of `ASCIIDoctor-PDF` will produces a PDF formatted file that can be distributed using email, document management or other transfer methods.
+
+.ASCIIDoctor-PDF
+[source,bash] 
+----
+jschust2@Adlantado:~$ sudo gem install asciidoctor-pdf --pre
+[sudo] password for jschust2:
+TheriSorry, try again.
+[sudo] password for jschust2:
+Fetching: pdf-core-0.7.0.gem (100%)
+Successfully installed pdf-core-0.7.0
+Fetching: ttfunk-1.5.1.gem (100%)
+Successfully installed ttfunk-1.5.1
+.... tons more ...
+Done installing documentation for pdf-core, ttfunk, prawn, prawn-table, Ascii85, ruby-rc4, hashery, afm, pdf-reader, prawn-templates, public_suffix, addressable, css_parser, prawn-svg, prawn-icon, safe_yaml, thread_safe, concurrent-ruby, polyglot, treetop, asciidoctor-pdf after 38 seconds
+21 gems installed
+----
+
+To verify that `ASCIIDoctor-PDF` installed use the following command.
+
+.Verify ASCIIDoctor-PDF
+[source,bash]
+----
+jschust2@Adlantado:~$ asciidoctor-pdf -v
+Asciidoctor PDF 1.5.0.beta.6 using Asciidoctor 1.5.5 [http://asciidoctor.org]
+Runtime Environment (ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux-gnu]) (lc:UTF-8 fs:UTF-8 in:- ex:UTF-8)
+----
+
+=== Testing the ASCIIDoctor tool chain
+
+This document was not meant to be a tutorial on how to create ASCIIDoctor files, so an example may be the best way of showing the process.
+
+To test the ASCIIDoctor Toolchain there is a `sample.adoc` file with a small example of ADOC foramtted files
+
+To download the `sample.adoc` file click on the following link link:./documents/sample.adoc[ link, winodw="_Blank"]
+
+Using the Nano text editor create a file called `sample.adoc` and paste the content of the file shown above into it and save the file.
+
+.ASCCIDoctor Toolchain
+[source,css]
+----
+jschust2@Adlantado:~$ ls sample.*
+sample.adoc
+jschust2@Adlantado:~$ asciidoctor *.adoc
+jschust2@Adlantado:~$ asciidoctor-pdf *.adoc
+jschust2@Adlantado:~$ ls sample.*
+sample.adoc  sample.html  sample.pdf
+jschust2@Adlantado:~$                  
+----
+
+The HTML Generated file `sample,html` can be opened with a browser.
+
+.ASCIIDoctor HTML
+image::adoc-html.png[ASCIIDoctor HTML, align='center']
+ 
+The PDF generated file `sample.pdf`  can be opened with a PDF Viewer or some browsers.
+
+.ASCIIDoctor PDF
+image::adoc-pdf.png[ASCIIDoctor PDF, align='center']
+ 
+
+
+
+
+
 
 
 
