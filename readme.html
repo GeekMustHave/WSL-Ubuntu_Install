@@ -1,0 +1,2258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<meta name="author" content="John HR Schuster">
+<title>Windows Subsystem for Linux (WSL)Install and Customize Guide</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite::before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+:not(pre)>code.nobreak{word-wrap:normal}
+:not(pre)>code.nowrap{white-space:nowrap}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
+table.tableblock{max-width:100%;border-collapse:separate}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+td.tableblock>.content>:last-child.sidebarblock{margin-bottom:0}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot,table.frame-ends{border-width:1px 0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Windows Subsystem for Linux (WSL)<br>Install and Customize Guide</h1>
+<div class="details">
+<span id="author" class="author">John HR Schuster</span><br>
+<span id="email" class="email"><a href="mailto:John.schuster@PhoenixWorkgroup.com">John.schuster@PhoenixWorkgroup.com</a></span><br>
+<span id="revnumber">version 2.1e,</span>
+<span id="revdate">10/31/2019</span>
+<br><span id="revremark">Blog Article</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_introduction">1. Introduction</a></li>
+<li><a href="#_getting_started">2. Getting Started</a>
+<ul class="sectlevel2">
+<li><a href="#_installation">2.1. Installation</a></li>
+</ul>
+</li>
+<li><a href="#_file_explorer_midnight_commander">3. File Explorer (Midnight Commander)</a></li>
+<li><a href="#_customize_startup_bashrc">4. Customize startup (.bashrc)</a></li>
+<li><a href="#_screen_fetch">5. Screen Fetch</a></li>
+<li><a href="#_figlet_banners">6. Figlet (Banners)</a></li>
+<li><a href="#_dialog_menus">7. Dialog (Menus)</a></li>
+<li><a href="#_alias">8. Alias</a></li>
+<li><a href="#_asciidoctor">9. ASCIIdoctor</a>
+<ul class="sectlevel2">
+<li><a href="#_testing_the_asciidoctor_tool_chain">9.1. Testing the ASCIIDoctor tool chain</a></li>
+</ul>
+</li>
+<li><a href="#_windows_10_mounts_ubuntu">10. Windows 10 Mounts - Ubuntu</a></li>
+<li><a href="#_node_installation">11. Node installation</a></li>
+<li><a href="#_apache_web_server">12. Apache Web Server</a></li>
+<li><a href="#_mysql_database">13. MySQL database</a></li>
+<li><a href="#_php">14. PHP</a>
+<ul class="sectlevel2">
+<li><a href="#_myphpadmin">14.1. myPHPAdmin</a></li>
+<li><a href="#_chinook_database">14.2. Chinook Database</a></li>
+</ul>
+</li>
+<li><a href="#_mywebsql">15. MyWebSQL</a>
+<ul class="sectlevel2">
+<li><a href="#_sqlite_databases">15.1. SQLite databases</a></li>
+</ul>
+</li>
+<li><a href="#_sqlite">16. SQLite</a></li>
+<li><a href="#_mongo">17. Mongo</a></li>
+<li><a href="#_git_version_control">18. GIT Version control</a></li>
+<li><a href="#_visual_studio_code">19. Visual Studio Code</a></li>
+<li><a href="#_shutdown_wsl">20. Shutdown WSL</a></li>
+<li><a href="#_backup_and_restore">21. Backup and Restore</a></li>
+<li><a href="#_a_little_fun">22. A little fun</a></li>
+<li><a href="#_document_history">23. Document History</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/thumbnail.png" alt="thumbnail">
+</div>
+</div>
+<div class="paragraph">
+<p>Windows 10 can run an instance of Ubuntu 18.04 using the Windows Subsystem for Linux WSL.
+The Ubuntu instance is limited to a command line instance but, it can run most Ubuntu server packages including Apache, MySQL and Mongo.
+This is a very convenient way to run Ubuntu Linux instance with using any Virtual Machine.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction">1. Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Windows Subsystem for Linux gives Windows users the ability to run a Linux instance on top of the Windows instance.
+It does have some limitations but this guide are my notes for install and customization.</p>
+</div>
+<div class="paragraph">
+<p>To download a PDF version of this document click on this <a href="./readme.pdf" target="_blank" rel="noopener">link</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_getting_started">2. Getting Started</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The interface to Windows Subsystem for Linus (WSL) in the Terminal window.
+This means there are some basic commands and utilities you need to use and customize it.</p>
+</div>
+<div class="sect2">
+<h3 id="_installation">2.1. Installation</h3>
+<div class="paragraph">
+<p>Ubuntu 18.04 can be installed on Windows 10 from the Microsoft Store.  The Ubuntu terminal and command-line-prompt become the user interface.</p>
+</div>
+<div class="paragraph">
+<p>During the installation you will need to pick a Ubuntu user ID and password.
+Do I need to mention, not to forget them?</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/ubuntu-store.png" alt="Store">
+</div>
+<div class="title">Figure 1. Ubuntu on Microsoft Store</div>
+</div>
+<div class="paragraph">
+<p>To start Ubuntu, use <code>ubuntu1804</code> on the command-line prompt (cmd.exe), or click on the Ubuntu tile in the Start Menu.</p>
+</div>
+<div class="paragraph">
+<p>The very first thing after the installation has completed is to is to <code>Update</code> the Ubuntu installation.</p>
+</div>
+<div class="listingblock">
+<div class="title">Update Command</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="shell">jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo </span>apt update
+<span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> password <span class="k">for </span>jschust2:
+Hit:1 http://archive.ubuntu.com/ubuntu bionic InRelease
+Get:2 http://security.ubuntu.com/ubuntu bionic-security InRelease <span class="o">[</span>88.7 kB]
+Get:3 http://archive.ubuntu.com/ubuntu bionic-updates InRelease <span class="o">[</span>88.7 kB]
+.... on so on
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+122 packages can be upgraded. Run <span class="s1">'apt list --upgradable'</span> to see them.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The second thing you should do is to <code>Upgrade</code> the Ubuntu installation.
+Be prepared as this will take some time to complete.</p>
+</div>
+<div class="paragraph">
+<p>About half way through the <code>upgrade</code> you will asked if you want have services automatically restarted, anwser <code>Yes</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Upgrade</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="shell">jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo </span>apt upgrade
+<span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> password <span class="k">for </span>jschust2:
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+Calculating upgrade... Done
+The following NEW packages will be installed:
+  dbus-x11 fontconfig-config fonts-dejavu-core libasyncns0 libdrm-amdgpu1 libdrm-intel1 libdrm-nouveau2 libdrm-radeon1
+  libflac8 libfontconfig1 libfontenc1 libgl1 libgl1-mesa-dri libgl1-mesa-glx libglapi-mesa libglvnd0 libglx-mesa0
+  libglx0 libice6 libllvm8 libogg0 libpciaccess0 libpulse0 libpulsedsp libsensors4 libsm6 libsndfile1 libvorbis0a
+  libvorbisenc2 libx11-xcb1 libxaw7 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-shape0 libxcb-sync1
+  libxcomposite1 libxdamage1 libxfixes3 libxft2 libxi6 libxinerama1 libxmu6 libxpm4 libxrandr2 libxrender1
+  libxshmfence1 libxt6 libxtst6 libxv1 libxxf86dga1 libxxf86vm1 pulseaudio-utils x11-common x11-utils
+The following packages will be upgraded:
+  apport apt apt-utils base-files bash bind9-host bsdutils bzip2 cloud-init curl dbus distro-info-data dmeventd
+  dmsetup dnsutils dpkg e2fsprogs fdisk friendly-recovery gcc-8-base <span class="nb">grep </span>initramfs-tools initramfs-tools-bin
+  initramfs-tools-core iputils-ping iputils-tracepath landscape-common language-selector-common libapt-inst2.0
+  libapt-pkg5.0 libbind9-160 libblkid1 libbz2-1.0 libcom-err2 libcurl3-gnutls libcurl4 libdb5.3 libdbus-1-3
+  libdevmapper-event1.02.1 libdevmapper1.02.1 libdns-export1100 libdns1100 libdrm-common libdrm2 libelf1 libexpat1
+  libext2fs2 libfdisk1 libgcc1 libglib2.0-0 libglib2.0-data libgnutls30 libirs160 libisc-export169 libisc169
+  libisccc160 libisccfg160 libldap-2.4-2 libldap-common liblvm2app2.2 liblvm2cmd2.02 liblwres160 libmount1 libmspack0
+  libnss-systemd libpam-systemd libprocps6 libpython3.6 libpython3.6-minimal libpython3.6-stdlib libseccomp2
+  libsmartcols1 libsqlite3-0 libss2 libssl1.1 libstdc++6 libsystemd0 libudev1 libuuid1 libxslt1.1 libzstd1 lvm2 mount
+  netplan.io nplan open-vm-tools openssl patch procps python3-apport python3-cryptography python3-distupgrade
+  python3-gdbm python3-jinja2 python3-problem-report python3-software-properties python3.6 python3.6-minimal snapd
+  software-properties-common sosreport <span class="nb">sudo </span>systemd systemd-sysv tmux tzdata ubuntu-minimal
+  ubuntu-release-upgrader-core ubuntu-server ubuntu-standard ubuntu-wsl udev update-notifier-common util-linux
+  uuid-runtime vim vim-common vim-runtime vim-tiny wslu xkb-data xxd
+122 upgraded, 56 newly installed, 0 to remove and 0 not upgraded.
+Need to get 76.9 MB of archives.
+After this operation, 230 MB of additional disk space will be used.
+Do you want to <span class="k">continue</span>? <span class="o">[</span>Y/n] y</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_file_explorer_midnight_commander">3. File Explorer (Midnight Commander)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Because I don&#8217;t like to type in Linux command to change directory or launch commands I reply on a File Explorer called Midmight Commander.</p>
+</div>
+<div class="paragraph">
+<p>It is a dual pane file explorer with function key control over copy, editing and managing the Ubuntu files.</p>
+</div>
+<div class="listingblock">
+<div class="title">Midnight Commander Install</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>mc
+<span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> password <span class="k">for </span>jschust2:
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  libssh2-1 mc-data unzip
+Suggested packages:
+  arj catdvi | texlive-binaries dbview djvulibre-bin genisoimage gv imagemagick libaspell-dev links | w3m | lynx
+  odt2txt poppler-utils python python-boto python-tz xpdf | pdf-viewer zip
+The following NEW packages will be installed:
+  libssh2-1 mc mc-data unzip
+0 upgraded, 4 newly installed, 0 to remove and 0 not upgraded.
+Need to get 1952 kB of archives.
+After this operation, 8099 kB of additional disk space will be used.
+Do you want to <span class="k">continue</span>? <span class="o">[</span>Y/n]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After the MC installation has completed, run it by typing <code>mc</code>.</p>
+</div>
+<div class="paragraph">
+<p>The Midnight Commander user interface looks like</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/mc.png" alt="MC">
+</div>
+<div class="title">Figure 2. Midnight Command UI</div>
+</div>
+<div class="paragraph">
+<p>The first time you use the editor I use the Nano editor.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_customize_startup_bashrc">4. Customize startup (.bashrc)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>.bashrc</code> is the startup file for the Ubuntu command line environment environment.
+By making some simple changed to this file you can make the interface much more efficient and cute.</p>
+</div>
+<div class="paragraph">
+<p>Using MC <code>edit</code> the file <code>.bashrc</code></p>
+</div>
+<div class="paragraph">
+<p>Change the prompt to colored.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/force-color.png" alt="Color">
+</div>
+<div class="title">Figure 3. Force Color Prompt</div>
+</div>
+<div class="paragraph">
+<p>Make the GCC error and warning display in color.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/gcc-color.png" alt="GCC">
+</div>
+<div class="title">Figure 4. GCC Color</div>
+</div>
+<div class="paragraph">
+<p>Then save the <code>.bashrc</code> file, <kbd>Ctrl-O</kbd>, <kbd>Enter</kbd>  followed by <kbd>Ctrl-X</kbd></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_screen_fetch">5. Screen Fetch</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When the Ubuntu environment starts up I like to see information about this instance of Ubuntu.
+Information like user name, Ubuntu version, type CPU and memeory.</p>
+</div>
+<div class="paragraph">
+<p>The <code>screenfetch</code> command is good for this and needs to be installed.</p>
+</div>
+<div class="paragraph">
+<p>Please download the latest script revision from Github. The version installed with <code>apt</code> is outdated.</p>
+</div>
+<div class="paragraph">
+<p>The commands to do the Screenfetch install are</p>
+</div>
+<div class="listingblock">
+<div class="title">Screenfetch Commands</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">wget https://raw.githubusercontent.com/KittyKatt/screenFetch/master/screenfetch-dev <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="nb">chmod</span> +x screenfetch-dev <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="nb">sudo mv </span>screenfetch-dev /usr/bin/screenfetch <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Download the correct Screenfetch from GiyHub</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Make that new file executable</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Move and rename the new command to the system command folder <code>/usr/bin</code></td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Screenfetch install</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span>wget https://raw.githubusercontent.com/KittyKatt/screenFetch/master/screenfetch-dev
+Will not apply HSTS. The HSTS database must be a regular and non-world-writable file.
+ERROR: could not open HSTS store at <span class="s1">'/home/jschust2/.wget-hsts'</span><span class="nb">.</span> HSTS will be disabled.
+<span class="nt">--2019-10-25</span> 18:48:38--  https://raw.githubusercontent.com/KittyKatt/screenFetch/master/screenfetch-dev
+Resolving raw.githubusercontent.com <span class="o">(</span>raw.githubusercontent.com<span class="o">)</span>... 151.101.0.133, 151.101.64.133, 151.101.128.133, ...
+Connecting to raw.githubusercontent.com <span class="o">(</span>raw.githubusercontent.com<span class="o">)</span>|151.101.0.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 244084 <span class="o">(</span>238K<span class="o">)</span> <span class="o">[</span>text/plain]
+Saving to: ‘screenfetch-dev.1’
+
+screenfetch-dev.1             100%[<span class="o">=================================================&gt;]</span> 238.36K  <span class="nt">--</span>.-KB/s    <span class="k">in </span>0.07s
+
+2019-10-25 18:48:38 <span class="o">(</span>3.12 MB/s<span class="o">)</span> - ‘screenfetch-dev.1’ saved <span class="o">[</span>244084/244084]
+
+jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">chmod</span> +x screenfetch-dev
+jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo mv </span>screenfetch-dev /usr/bin/screenfetch
+<span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> password <span class="k">for </span>jschust2:
+jschust2@Adlantado:~<span class="err">$</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To test the new <code>screenfetch</code> command</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/screenfetch-example.png" alt="Screenfetch Example">
+</div>
+<div class="title">Figure 5. Screenfetch Example</div>
+</div>
+<div class="paragraph">
+<p>Add this new command to the <code>.bashrc</code> file by opening it and adding the command and saving the file.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/screenfetch-install.png" alt="Bashrc">
+</div>
+<div class="title">Figure 6. Edit .bashrc</div>
+</div>
+<div class="paragraph">
+<p>To verify that the new <code>screenfetch</code> and the <code>.bashrc</code> have worked enter</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>exec bash</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_figlet_banners">6. Figlet (Banners)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I enjoy making the shell scripts I write just a little more visually entertaining by using banners.
+The <code>figlet</code> command is a good utility for banners.</p>
+</div>
+<div class="listingblock">
+<div class="title">Figlet installation</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~/new-project<span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>figlet
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  adwaita-icon-theme at-spi2-core dconf-gsettings-backend dconf-service fontconfig
+  glib-networking glib-networking-common glib-networking-services
+  gsettings-desktop-schemas gtk-update-icon-cache hicolor-icon-theme
+  humanity-icon-theme libatk-bridge2.0-0 libatk1.0-0 libatk1.0-data libatspi2.0-0
+  libavahi-client3 libavahi-common-data libavahi-common3 libcairo-gobject2 libcairo2
+  libcolord2 libcroco3 libcups2 libdatrie1 libdconf1 libepoxy0 libgail-common libgail18
+  libgdk-pixbuf2.0-0 libgdk-pixbuf2.0-bin libgdk-pixbuf2.0-common libgraphite2-3
+  libgtk-3-0 libgtk-3-bin libgtk-3-common libgtk2.0-0 libgtk2.0-bin libgtk2.0-common
+  libharfbuzz0b libjson-glib-1.0-0 libjson-glib-1.0-common liblcms2-2 libnotify4
+  libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 libpixman-1-0 libproxy1v5
+  librest-0.7-0 librsvg2-2 librsvg2-common libsoup-gnome2.4-1 libsoup2.4-1 libthai-data
+  libthai0 libwayland-client0 libwayland-cursor0 libwayland-egl1 libwxbase3.0-0v5
+  libwxgtk3.0-0v5 libxcb-render0 libxcb-shm0 libxcursor1 libxkbcommon0
+  notification-daemon ubuntu-mono
+Use <span class="s1">'sudo apt autoremove'</span> to remove them.
+The following NEW packages will be installed:
+  figlet
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 133 kB of archives.
+After this operation, 752 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu bionic/universe amd64 figlet amd64 2.2.5-3 <span class="o">[</span>133 kB]
+Fetched 133 kB <span class="k">in </span>1s <span class="o">(</span>198 kB/s<span class="o">)</span>
+Selecting previously unselected package figlet.
+<span class="o">(</span>Reading database ... 51324 files and directories currently installed.<span class="o">)</span>
+Preparing to unpack .../figlet_2.2.5-3_amd64.deb ...
+Unpacking figlet <span class="o">(</span>2.2.5-3<span class="o">)</span> ...
+Setting up figlet <span class="o">(</span>2.2.5-3<span class="o">)</span> ...
+update-alternatives: using /usr/bin/figlet-figlet to provide /usr/bin/figlet <span class="o">(</span>figlet<span class="o">)</span> <span class="k">in </span>auto mode
+Processing triggers <span class="k">for </span>man-db <span class="o">(</span>2.8.3-2ubuntu0.1<span class="o">)</span> ...
+jschust2@Adlantado:~/new-project<span class="err">$</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To create banner use the example below as a reference.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+There are many different options and fonts available under the <code>Figlet</code> command.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Figlet example</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~/new-project<span class="nv">$ </span>figlet <span class="s2">"Gen-Doco"</span>
+  ____                  ____
+ / ___| ___ _ __       |  _ <span class="se">\ </span> ___   ___ ___
+| |  _ / _ <span class="se">\ </span><span class="s1">'_ \ _____| | | |/ _ \ / __/ _ \
+| |_| |  __/ | | |_____| |_| | (_) | (_| (_) |
+ \____|\___|_| |_|     |____/ \___/ \___\___/
+
+jschust2@Adlantado:~/new-project$</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dialog_menus">7. Dialog (Menus)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Because this Ubuntu instance is command line only it would be nice to have a mneu system that looks almost like a GUI.</p>
+</div>
+<div class="paragraph">
+<p>The utility for this is called <code>dialog</code> and is used in bash shell scripts to help make great looking menus.</p>
+</div>
+<div class="paragraph">
+<p>The menu below was generated from the <code>tmenu.sh</code> shell script.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/dialog-menu.png" alt="Dialog GUI Example">
+</div>
+<div class="title">Figure 7. Dialog GUI Example</div>
+</div>
+<div class="listingblock">
+<div class="title">Dialog Installation</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>dialog
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following NEW packages will be installed:
+  dialog
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 217 kB of archives.
+After this operation, 1149 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu bionic/universe amd64 dialog amd64 1.3-20171209-1 <span class="o">[</span>217 kB]
+Fetched 217 kB <span class="k">in </span>1s <span class="o">(</span>256 kB/s<span class="o">)</span>
+Selecting previously unselected package dialog.
+<span class="o">(</span>Reading database ... 29678 files and directories currently installed.<span class="o">)</span>
+Preparing to unpack .../dialog_1.3-20171209-1_amd64.deb ...
+Unpacking dialog <span class="o">(</span>1.3-20171209-1<span class="o">)</span> ...
+Setting up dialog <span class="o">(</span>1.3-20171209-1<span class="o">)</span> ...
+Processing triggers <span class="k">for </span>man-db <span class="o">(</span>2.8.3-2ubuntu0.1<span class="o">)</span> ...
+jschust2@Adlantado:~<span class="err">$</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To verify that <code>dialog</code> has been installed type</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>dialog</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A few pages of Dialog aoptions will be displayed.
+This document is not meant to be a tutorial on how to create Dialog menus so an example may be the best instruction.</p>
+</div>
+<div class="paragraph">
+<p>The following <code>tmenu.sh</code> bash script uses the dialog commands to build a simple menu seen in the snapshot above.
+This is just a short example of some of the powerful commands in the <code>dialog</code> utility.</p>
+</div>
+<div class="paragraph">
+<p>Create a new file named <code>tmenu.sh</code> and copy the following text into it.</p>
+</div>
+<div class="listingblock">
+<div class="title">tmenu.sh Dialog script</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="c">#!/bin/bash</span>
+
+<span class="c"># while-menu-dialog: a menu driven system information program</span>
+
+<span class="nv">DIALOG_CANCEL</span><span class="o">=</span>1
+<span class="nv">DIALOG_ESC</span><span class="o">=</span>255
+<span class="nv">HEIGHT</span><span class="o">=</span>0
+<span class="nv">WIDTH</span><span class="o">=</span>0
+
+display_result<span class="o">()</span> <span class="o">{</span>
+  dialog <span class="nt">--title</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">--no-collapse</span> <span class="se">\</span>
+    <span class="nt">--msgbox</span> <span class="s2">"</span><span class="nv">$result</span><span class="s2">"</span> 0 0
+<span class="o">}</span>
+
+<span class="k">while </span><span class="nb">true</span><span class="p">;</span> <span class="k">do
+  </span><span class="nb">exec </span>3&gt;&amp;1
+  <span class="nv">selection</span><span class="o">=</span><span class="si">$(</span>dialog <span class="se">\</span>
+    <span class="nt">--backtitle</span> <span class="s2">"GeekMustHave System Information"</span> <span class="se">\</span>
+    <span class="nt">--title</span> <span class="s2">"Menu"</span> <span class="se">\</span>
+    <span class="nt">--clear</span> <span class="se">\</span>
+    <span class="nt">--cancel-label</span> <span class="s2">"Exit"</span> <span class="se">\</span>
+    <span class="nt">--menu</span> <span class="s2">"Please select:"</span> <span class="nv">$HEIGHT</span> <span class="nv">$WIDTH</span> 4 <span class="se">\</span>
+    <span class="s2">"1"</span> <span class="s2">"Display System Information"</span> <span class="se">\</span>
+    <span class="s2">"2"</span> <span class="s2">"Display Disk Space"</span> <span class="se">\</span>
+    <span class="s2">"3"</span> <span class="s2">"Display Home Space Utilization"</span> <span class="se">\</span>
+    2&gt;&amp;1 1&gt;&amp;3<span class="si">)</span>
+  <span class="nv">exit_status</span><span class="o">=</span><span class="nv">$?</span>
+  <span class="nb">exec </span>3&gt;&amp;-
+  <span class="k">case</span> <span class="nv">$exit_status</span> <span class="k">in</span>
+    <span class="nv">$DIALOG_CANCEL</span><span class="p">)</span>
+      clear
+      <span class="nb">echo</span> <span class="s2">"Program terminated."</span>
+      <span class="nb">exit</span>
+      <span class="p">;;</span>
+    <span class="nv">$DIALOG_ESC</span><span class="p">)</span>
+      clear
+      <span class="nb">echo</span> <span class="s2">"Program aborted."</span> <span class="o">&gt;</span>&amp;2
+      <span class="nb">exit </span>1
+      <span class="p">;;</span>
+  <span class="k">esac</span>
+  <span class="k">case</span> <span class="nv">$selection</span> <span class="k">in
+    </span>0 <span class="p">)</span>
+      clear
+      <span class="nb">echo</span> <span class="s2">"Program terminated."</span>
+      <span class="p">;;</span>
+    1 <span class="p">)</span>
+      <span class="nv">result</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="s2">"Hostname: </span><span class="nv">$HOSTNAME</span><span class="s2">"</span><span class="p">;</span> <span class="nb">uptime</span><span class="si">)</span>
+      display_result <span class="s2">"System Information"</span>
+      <span class="p">;;</span>
+    2 <span class="p">)</span>
+      <span class="nv">result</span><span class="o">=</span><span class="si">$(</span><span class="nb">df</span> <span class="nt">-h</span><span class="si">)</span>
+      display_result <span class="s2">"Disk Space"</span>
+      <span class="p">;;</span>
+    3 <span class="p">)</span>
+      <span class="k">if</span> <span class="o">[[</span> <span class="si">$(</span><span class="nb">id</span> <span class="nt">-u</span><span class="si">)</span> <span class="nt">-eq</span> 0 <span class="o">]]</span><span class="p">;</span> <span class="k">then
+        </span><span class="nv">result</span><span class="o">=</span><span class="si">$(</span><span class="nb">du</span> <span class="nt">-sh</span> /home/<span class="k">*</span> 2&gt; /dev/null<span class="si">)</span>
+        display_result <span class="s2">"Home Space Utilization (All Users)"</span>
+      <span class="k">else
+        </span><span class="nv">result</span><span class="o">=</span><span class="si">$(</span><span class="nb">du</span> <span class="nt">-sh</span> <span class="nv">$HOME</span> 2&gt; /dev/null<span class="si">)</span>
+        display_result <span class="s2">"Home Space Utilization (</span><span class="nv">$USER</span><span class="s2">)"</span>
+      <span class="k">fi</span>
+      <span class="p">;;</span>
+  <span class="k">esac</span>
+<span class="k">done</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To download the <code>tmenu.sh</code> click on this <a href="./documents/tmenu.sh"> link</a></p>
+</div>
+<div class="paragraph">
+<p>After the file has been created it must be make executagle with the command</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>chmod +x tmenu.sh</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then to run the Bash shell script use the command</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./tmenu.sh</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alias">8. Alias</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An alias is custom command that you define in Ubuntu.</p>
+</div>
+<div class="paragraph">
+<p>The Dialog example above is only available from the <code>home</code> directory and it&#8217;s name <code>tmenu.sh</code> is unclear.
+It would be better if this Dialog shell script could be executed from anywhere using <code>menu</code>.</p>
+</div>
+<div class="paragraph">
+<p>Open the <code>.bashrc</code> file and edit it. Add the following lines at the end of the file.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/alias-tmenu.png" alt="Alias">
+</div>
+<div class="title">Figure 8. Alias for tmenu.sh</div>
+</div>
+<div class="paragraph">
+<p>Save the file and restart the bash environment by entering the following command.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>exec bash</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then the <code>tmenu.sh</code> can be run from any directory by entering <code>menu</code>   .</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_asciidoctor">9. ASCIIdoctor</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>ASCIIDcotor is a tool chain when used with an text editor can create very well formatted documentation that can be used in a web page or generated into a PDF.</p>
+</div>
+<div class="paragraph">
+<p>This entire installation guide was written with ASCIIDoctor formatted text file.</p>
+</div>
+<div class="paragraph">
+<p>To download the <code>readme.adoc</code> file, for this document, use the following <a href="./readme.adoc" target="_blank" rel="noopener">link</a></p>
+</div>
+<div class="paragraph">
+<p>The installation of <code>ASCIIDoctor</code> will include the installation of Ruby and GEM the Ruby package manager.
+<code>ASCIIDoctor</code> produces a HTML formatted file that can be viewed in a browser or copied to a web server.</p>
+</div>
+<div class="listingblock">
+<div class="title">ASCIIDoctor installation</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>asciidoctor
+<span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> password <span class="k">for </span>jschust2:
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  fonts-lato javascript-common libjs-jquery libruby2.5 rake ruby ruby-did-you-mean ruby-minitest ruby-net-telnet
+  ruby-power-assert ruby-test-unit ruby2.5 rubygems-integration zip
+Suggested packages:
+  apache2 | lighttpd | httpd ri ruby-dev bundler
+The following NEW packages will be installed:
+  asciidoctor fonts-lato javascript-common libjs-jquery libruby2.5 rake ruby ruby-did-you-mean ruby-minitest
+  ruby-net-telnet ruby-power-assert ruby-test-unit ruby2.5 rubygems-integration zip
+0 upgraded, 15 newly installed, 0 to remove and 0 not upgraded.
+Need to get 6493 kB of archives.
+After this operation, 29.4 MB of additional disk space will be used.
+Do you want to <span class="k">continue</span>? <span class="o">[</span>Y/n]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To verify <code>ASCIIDoctor</code>    was installed use the following command</p>
+</div>
+<div class="listingblock">
+<div class="title">Test ASCIIDoctor</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span>asciidoctor <span class="nt">-v</span>
+Asciidoctor 1.5.5 <span class="o">[</span>http://asciidoctor.org]
+Runtime Environment <span class="o">(</span>ruby 2.5.1p57 <span class="o">(</span>2018-03-29 revision 63029<span class="o">)</span> <span class="o">[</span>x86_64-linux-gnu]<span class="o">)</span> <span class="o">(</span>lc:UTF-8 fs:UTF-8 <span class="k">in</span>:- ex:UTF-8<span class="o">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The installation of <code>ASCIIDoctor-PDF</code> will produces a PDF formatted file that can be distributed using email, document management or other transfer methods.</p>
+</div>
+<div class="listingblock">
+<div class="title">ASCIIDoctor-PDF</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo </span>gem <span class="nb">install </span>asciidoctor-pdf <span class="nt">--pre</span>
+<span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> password <span class="k">for </span>jschust2:
+TheriSorry, try again.
+<span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> password <span class="k">for </span>jschust2:
+Fetching: pdf-core-0.7.0.gem <span class="o">(</span>100%<span class="o">)</span>
+Successfully installed pdf-core-0.7.0
+Fetching: ttfunk-1.5.1.gem <span class="o">(</span>100%<span class="o">)</span>
+Successfully installed ttfunk-1.5.1
+.... tons more ...
+Done installing documentation <span class="k">for </span>pdf-core, ttfunk, prawn, prawn-table, Ascii85, ruby-rc4, hashery, afm, pdf-reader, prawn-templates, public_suffix, addressable, css_parser, prawn-svg, prawn-icon, safe_yaml, thread_safe, concurrent-ruby, polyglot, treetop, asciidoctor-pdf after 38 seconds
+21 gems installed</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To verify that <code>ASCIIDoctor-PDF</code> installed use the following command.</p>
+</div>
+<div class="listingblock">
+<div class="title">Verify ASCIIDoctor-PDF</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span>asciidoctor-pdf <span class="nt">-v</span>
+Asciidoctor PDF 1.5.0.beta.6 using Asciidoctor 1.5.5 <span class="o">[</span>http://asciidoctor.org]
+Runtime Environment <span class="o">(</span>ruby 2.5.1p57 <span class="o">(</span>2018-03-29 revision 63029<span class="o">)</span> <span class="o">[</span>x86_64-linux-gnu]<span class="o">)</span> <span class="o">(</span>lc:UTF-8 fs:UTF-8 <span class="k">in</span>:- ex:UTF-8<span class="o">)</span></code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_testing_the_asciidoctor_tool_chain">9.1. Testing the ASCIIDoctor tool chain</h3>
+<div class="paragraph">
+<p>This document was not meant to be a tutorial on how to create ASCIIDoctor files, so an example may be the best way of showing the process.</p>
+</div>
+<div class="paragraph">
+<p>To test the ASCIIDoctor Toolchain there is a <code>sample.adoc</code> file with a small example of ADOC foramtted files</p>
+</div>
+<div class="paragraph">
+<p>To download the <code>sample.adoc</code> file click on the following link <a href="./documents/sample.adoc">link</a></p>
+</div>
+<div class="paragraph">
+<p>Using the Nano text editor create a file called <code>sample.adoc</code> and paste the content of the file shown above into it and save the file.</p>
+</div>
+<div class="listingblock">
+<div class="title">ASCCIDoctor Toolchain</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">ls </span>sample.<span class="k">*</span>
+sample.adoc
+jschust2@Adlantado:~<span class="nv">$ </span>asciidoctor <span class="k">*</span>.adoc
+jschust2@Adlantado:~<span class="nv">$ </span>asciidoctor-pdf <span class="k">*</span>.adoc
+jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">ls </span>sample.<span class="k">*</span>
+sample.adoc  sample.html  sample.pdf
+jschust2@Adlantado:~<span class="err">$</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The HTML Generated file <code>sample,html</code> can be opened with a browser.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/adoc-html.png" alt="ASCIIDoctor HTML">
+</div>
+<div class="title">Figure 9. ASCIIDoctor HTML</div>
+</div>
+<div class="paragraph">
+<p>The PDF generated file <code>sample.pdf</code>  can be opened with a PDF Viewer or some browsers.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/adoc-pdf.png" alt="ASCIIDoctor PDF">
+</div>
+<div class="title">Figure 10. ASCIIDoctor PDF</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_windows_10_mounts_ubuntu">10. Windows 10 Mounts - Ubuntu</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All of the Windows Drives are automatically mounted when Ubuntu is started.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/window-mounts.png" alt="window mounts">
+</div>
+<div class="title">Figure 11. Windows drives mount</div>
+</div>
+<div class="paragraph">
+<p>The easiest way to move or copy files between Windows 10 and the Ubuntu instance is to use Media Commander and go to <code>/mnt</code> folder where all the drives in Windows 10 will be shown.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/win10-ubuntu.png" alt="Windows 10 - Ubuntu transfer">
+</div>
+<div class="title">Figure 12. Windows 10 - Ubuntu transfer</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_node_installation">11. Node installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Working with Node and JavaScript will require the i nstallation of Node.</p>
+</div>
+<div class="paragraph">
+<p>At the last update of this guide, Node.js 10.15.3 is the LTS release available.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When installing <code>node</code> the Python language and Python libraries iwll be updated.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When <code>Node</code> is install the Node Package Managr <code>npm</code> will also be installed
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Node Install</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span>curl <span class="nt">-sL</span> https://deb.nodesource.com/setup_10.x | <span class="nb">sudo</span> <span class="nt">-E</span> bash -
+<span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> password <span class="k">for </span>jschust2:
+Sorry, try again.
+<span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> password <span class="k">for </span>jschust2:
+
+<span class="c">## Installing the NodeSource Node.js 10.x repo...</span>
+
+<span class="c">## Populating apt-get cache...</span>
+
++ apt-get update
+Get:1 http://security.ubuntu.com/ubuntu bionic-security InRelease <span class="o">[</span>88
+... and a tone more ..
+Fetched 5352 B <span class="k">in </span>2s <span class="o">(</span>2405 B/s<span class="o">)</span>
+Reading package lists... Done
+
+<span class="c">## Run `sudo apt-get install -y nodejs` to install Node.js 10.x and npm</span>
+
+jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">-y</span> nodejs
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  libpython-stdlib libpython2.7-minimal libpython2.7-stdlib python python-minimal python2.7
+  python2.7-minimal
+....  and a bunch more ....
+Setting up libpython-stdlib:amd64 <span class="o">(</span>2.7.15~rc1-1<span class="o">)</span> ...
+Setting up python <span class="o">(</span>2.7.15~rc1-1<span class="o">)</span> ...
+Processing triggers <span class="k">for </span>man-db <span class="o">(</span>2.8.3-2ubuntu0.1<span class="o">)</span> ...
+Processing triggers <span class="k">for </span>mime-support <span class="o">(</span>3.60ubuntu1<span class="o">)</span> ...
+jschust2@Adlantado:~<span class="err">$</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To verify that Node has been insalled run the following commands</p>
+</div>
+<div class="listingblock">
+<div class="title">Verify Node</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span>node <span class="nt">-v</span>
+v10.17.0
+jschust2@Adlantado:~<span class="nv">$ </span>npm <span class="nt">-v</span>
+6.11.3
+jschust2@Adlantado:~<span class="err">$</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_apache_web_server">12. Apache Web Server</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Apache is one of the most used web servers on the Internet.</p>
+</div>
+<div class="paragraph">
+<p>Some simple alternative to Apache are XAMPP or WAMPServer, however, they are not meant to work for any production environment .</p>
+</div>
+<div class="paragraph">
+<p>To install Apache use the following commands</p>
+</div>
+<div class="listingblock">
+<div class="title">Apache Installation</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span> <span class="nb">sudo </span>apt-get <span class="nb">install </span>apache2
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  apache2-bin apache2-data apache2-utils libapr1 libaprutil1 libaprutil1-dbd-sqlite3 libaprutil1-ldap
+  liblua5.2-0 ssl-cert
+Suggested packages:
+  apache2-doc apache2-suexec-pristine | apache2-suexec-custom openssl-blacklist
+The following NEW packages will be installed:
+  apache2 apache2-bin apache2-data apache2-utils libapr1 libaprutil1 libaprutil1-dbd-sqlite3
+  libaprutil1-ldap liblua5.2-0 ssl-cert
+0 upgraded, 10 newly installed, 0 to remove and 0 not upgraded.
+Need to get 1730 kB of archives.
+After this operation, 6982 kB of additional disk space will be used.
+Do you want to <span class="k">continue</span>? <span class="o">[</span>Y/n]
+Get:1 http://archive.ubuntu.com/ubuntu bionic/main amd64 libapr1 amd64 1.6.3-2 <span class="o">[</span>90.9 kB]
+Get:2 http://archive.ubuntu.com/ubuntu bionic/main amd64 libaprutil1 amd64 1.6.1-2 <span class="o">[</span>84.4 kB]
+Get:3 http://archive.ubuntu.com/ubuntu bionic/main amd64 libaprutil1-dbd-sqlite3 amd64 1.6.1-2 <span class="o">[</span>10.6 kB]
+.... and a tone more ...
+Processing triggers <span class="k">for </span>libc-bin <span class="o">(</span>2.27-3ubuntu1<span class="o">)</span> ...
+Processing triggers <span class="k">for </span>systemd <span class="o">(</span>237-3ubuntu10.31<span class="o">)</span> ...
+Processing triggers <span class="k">for </span>man-db <span class="o">(</span>2.8.3-2ubuntu0.1<span class="o">)</span> ...
+Processing triggers <span class="k">for </span>ufw <span class="o">(</span>0.36-0ubuntu0.18.04.1<span class="o">)</span> ...
+Processing triggers <span class="k">for </span>ureadahead <span class="o">(</span>0.100.0-21<span class="o">)</span> ...
+jschust2@Adlantado:~<span class="err">$</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To start the Apache web service use the following commands.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The first time you start Apache there will be a Windows firewall warning, Just agree to it.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Start Apache</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo </span>service apache2 start
+ <span class="k">*</span> Starting Apache httpd web server apache2                                                                 <span class="k">*</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To verify that Apache is running use a Windows 10 browser and open the <code>127.0.0.1:80</code> page</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/apache-runing.png" alt="Apache Test">
+</div>
+<div class="title">Figure 13. Apache Test</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mysql_database">13. MySQL database</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The MySQL database is one of the eaiser relational database systems to install and use.</p>
+</div>
+<div class="paragraph">
+<p>To install MySQL use the following commands.</p>
+</div>
+<div class="listingblock">
+<div class="title">MySQL Installation</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span> <span class="nb">sudo </span>apt-get <span class="nb">install </span>mysql-server mysql-client
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  libaio1 libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-6 libfcgi-perl
+  libhtml-parser-perl libhtml-tagset-perl libhtml-template-perl libhttp-date-perl libhttp-message-perl
+  libio-html-perl liblwp-mediatypes-perl libtimedate-perl liburi-perl mysql-client-5.7
+  mysql-client-core-5.7 mysql-common mysql-server-5.7 mysql-server-core-5.7
+Suggested packages:
+  libdata-dump-perl libipc-sharedcache-perl libwww-perl mailx tinyca
+The following NEW packages will be installed:
+  libaio1 libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-6 libfcgi-perl
+  libhtml-parser-perl libhtml-tagset-perl libhtml-template-perl libhttp-date-perl libhttp-message-perl
+  libio-html-perl liblwp-mediatypes-perl libtimedate-perl liburi-perl mysql-client mysql-client-5.7
+  mysql-client-core-5.7 mysql-common mysql-server mysql-server-5.7 mysql-server-core-5.7
+0 upgraded, 22 newly installed, 0 to remove and 0 not upgraded.
+Need to get 21.1 MB of archives.
+After this operation, 162 MB of additional disk space will be used.
+Do you want to <span class="k">continue</span>? <span class="o">[</span>Y/n]
+... ton of stuff <span class="k">**</span>
+Setting up mysql-server <span class="o">(</span>5.7.27-0ubuntu0.18.04.1<span class="o">)</span> ...
+Processing triggers <span class="k">for </span>libc-bin <span class="o">(</span>2.27-3ubuntu1<span class="o">)</span> ...
+Processing triggers <span class="k">for </span>systemd <span class="o">(</span>237-3ubuntu10.31<span class="o">)</span> ...
+Processing triggers <span class="k">for </span>man-db <span class="o">(</span>2.8.3-2ubuntu0.1<span class="o">)</span> ...
+Processing triggers <span class="k">for </span>ureadahead <span class="o">(</span>0.100.0-21<span class="o">)</span> ...
+jschust2@Adlantado:~<span class="err">$</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To start MySQL use the following commands.</p>
+</div>
+<div class="listingblock">
+<div class="title">MySQL Start</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo </span>service mysql start
+ <span class="k">*</span> Starting MySQL database server mysqld                                                                   No directory, logging <span class="k">in </span>with <span class="nv">HOME</span><span class="o">=</span>/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To verify that MySQL is working run the followinf commands</p>
+</div>
+<div class="listingblock">
+<div class="title">MySQL Testing</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo </span>mysql <span class="nt">-u</span> root
+Welcome to the MySQL monitor.  Commands end with <span class="p">;</span> or <span class="se">\g</span><span class="nb">.</span>
+Your MySQL connection <span class="nb">id </span>is 4
+Server version: 5.7.27-0ubuntu0.18.04.1 <span class="o">(</span>Ubuntu<span class="o">)</span>
+
+Copyright <span class="o">(</span>c<span class="o">)</span> 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type <span class="s1">'help;'</span> or <span class="s1">'\h'</span> <span class="k">for </span>help. Type <span class="s1">'\c'</span> to clear the current input statement.
+
+mysql&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To create a MySQL user for testing use the following SQL commands withing the MySQL Client</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The user is <code>jschust2</code> with the lame password of <code>password</code>, probably should change that later.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">MySQL New User</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">mysql&gt; CREATE USER <span class="s1">'jschust2'</span>@<span class="s1">'localhost'</span> IDENTIFIED BY <span class="s1">'password'</span><span class="p">;</span>
+Query OK, 0 rows affected <span class="o">(</span>0.01 sec<span class="o">)</span>
+
+mysql&gt; GRANT ALL PRIVILEGES ON <span class="k">*</span>.<span class="k">*</span> TO <span class="s1">'jschust2'</span>@<span class="s1">'localhost'</span><span class="p">;</span>
+Query OK, 0 rows affected <span class="o">(</span>0.00 sec<span class="o">)</span>
+
+mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
+Query OK, 0 rows affected <span class="o">(</span>0.01 sec<span class="o">)</span>
+
+mysql&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+There are some issues with which IP address to use to connect to MySQL.
+An update to this document will include the answer.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_php">14. PHP</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>PHP is a server side scripting language. that is used to develop Static websites or Dynamic websites or Web applications. PHP stands for Hypertext Pre-processor,</p>
+</div>
+<div class="listingblock">
+<div class="title">PHP Installation</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>php libapache2-mod-php php-mysql php-gd php-json php-curl php-xml php-intl
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  adwaita-icon-theme at-spi2-core dconf-gsettings-backend dconf-service fontconfig glib-networking
+  glib-networking-common glib-networking-services gsettings-desktop-schemas gtk-update-icon-cache hicolor-icon-theme
+  humanity-icon-theme libatk-bridge2.0-0 libatk1.0-0 libatk1.0-data libatspi2.0-0 libavahi-client3
+  libavahi-common-data libavahi-common3 libcairo-gobject2 libcairo2 libcolord2 libcroco3 libcups2 libdatrie1 libdconf1
+  libepoxy0 libgail-common libgail18 libgdk-pixbuf2.0-0 libgdk-pixbuf2.0-bin libgdk-pixbuf2.0-common libgraphite2-3
+  libgtk-3-0 libgtk-3-bin libgtk-3-common libgtk2.0-0 libgtk2.0-bin libgtk2.0-common libharfbuzz0b libjson-glib-1.0-0
+  libjson-glib-1.0-common liblcms2-2 libnotify4 libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 libpixman-1-0
+  libproxy1v5 librest-0.7-0 librsvg2-2 librsvg2-common libsoup-gnome2.4-1 libsoup2.4-1 libthai-data libthai0
+  libwayland-client0 libwayland-cursor0 libwayland-egl1 libwxbase3.0-0v5 libwxgtk3.0-0v5 libxcb-render0 libxcb-shm0
+  libxcursor1 libxkbcommon0 notification-daemon ubuntu-mono
+Use <span class="s1">'sudo apt autoremove'</span> to remove them.
+The following additional packages will be installed:
+  libapache2-mod-php7.2 libgd3 libsodium23 libwebp6 php-common php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-gd
+  php7.2-intl php7.2-json php7.2-mysql php7.2-opcache php7.2-readline php7.2-xml
+Suggested packages:
+  php-pear libgd-tools
+The following NEW packages will be installed:
+  libapache2-mod-php libapache2-mod-php7.2 libgd3 libsodium23 libwebp6 php php-common php-curl php-gd php-intl
+  php-json php-mysql php-xml php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-gd php7.2-intl php7.2-json
+  php7.2-mysql php7.2-opcache php7.2-readline php7.2-xml
+0 upgraded, 24 newly installed, 0 to remove and 0 not upgraded.
+Need to get 4730 kB of archives.
+After this operation, 20.2 MB of additional disk space will be used.
+Do you want to <span class="k">continue</span>? <span class="o">[</span>Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu bionic/main amd64 php-common all 1:60ubuntu1 <span class="o">[</span>12.1 kB]
+Ign:2 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 php7.2-common amd64 7.2.19-0ubuntu0.18.04.2
+Ign:3 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 php7.2-json amd64 7.2.19-0ubuntu0.18.04.2
+Err:2 http://security.ubuntu.com/ubuntu bionic-updates/main amd64 php7.2-common amd64 7.2.19-0ubuntu0.18.04.2
+... <span class="k">then </span>a ton more ...
+4  Not Found <span class="o">[</span>IP: 2001:67c:1560:8001::11 80]
+E: Unable to fetch some archives, maybe run apt-get update or try with <span class="nt">--fix-missing</span>?
+
+jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo </span>apt-get update
+Hit:1 https://deb.nodesource.com/node_10.x bionic InRelease
+Ign:2 https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 InRelease
+Hit:3 https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 Release
+Hit:4 http://archive.ubuntu.com/ubuntu bionic InRelease
+Get:5 http://security.ubuntu.com/ubuntu bionic-security InRelease <span class="o">[</span>88.7 kB]
+Get:6 http://archive.ubuntu.com/ubuntu bionic-updates InRelease <span class="o">[</span>88.7 kB]
+Get:7 http://archive.ubuntu.com/ubuntu bionic-backports InRelease <span class="o">[</span>74.6 kB]
+Get:9 http://security.ubuntu.com/ubuntu bionic-security/main amd64 Packages <span class="o">[</span>545 kB]
+Get:10 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 Packages <span class="o">[</span>768 kB]
+Get:11 http://security.ubuntu.com/ubuntu bionic-security/main Translation-en <span class="o">[</span>182 kB]
+Get:12 http://security.ubuntu.com/ubuntu bionic-security/universe amd64 Packages <span class="o">[</span>617 kB]
+Get:13 http://archive.ubuntu.com/ubuntu bionic-updates/main Translation-en <span class="o">[</span>275 kB]
+Get:14 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 Packages <span class="o">[</span>1018 kB]
+Get:15 http://security.ubuntu.com/ubuntu bionic-security/universe Translation-en <span class="o">[</span>206 kB]
+Get:16 http://archive.ubuntu.com/ubuntu bionic-updates/universe Translation-en <span class="o">[</span>313 kB]
+Get:17 http://archive.ubuntu.com/ubuntu bionic-backports/universe amd64 Packages <span class="o">[</span>4024 B]
+Fetched 4179 kB <span class="k">in </span>10s <span class="o">(</span>421 kB/s<span class="o">)</span>
+Reading package lists... Done
+jschust2@Adlantado:~<span class="err">$</span></code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_myphpadmin">14.1. myPHPAdmin</h3>
+<div class="paragraph">
+<p>The <code>myPHPAdmin</code> is a web interface to the PHP and my SQL environment.</p>
+</div>
+<div class="paragraph">
+<p>To Instal myPHPAdmin Use the following command</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo apt-get install -y phpmyadmin</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There will be a few configuration screens</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/myphpadmin-apache.png" alt="Server">
+</div>
+<div class="title">Figure 14. myPHPAdmin Server</div>
+</div>
+<div class="paragraph">
+<p>Make sure the MySQL Server has been started, see steps below for this process.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/myPhpAdmin-db.png" alt="Database">
+</div>
+<div class="title">Figure 15. MySQLAdmin Database</div>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/mySQLAdmin-password.png" alt="Password">
+</div>
+<div class="title">Figure 16. mySQLAdmin Password</div>
+</div>
+<div class="paragraph">
+<p>To access mySQLAdmin make sure that the Appache Service is tuened on then open a browser and enter the following URL</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>127.0.0.1/mySQLAdmin</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The User id we should use is the one created in the MySQL install <code>jschust2</code> and the password you entered in the configutation screen above.
+In my case it is <code>password</code>.
+If you use the default PHPMyAdmin user <code>phpmysql</code> and the password you created at installation you will be able to login but you will <strong>not</strong> be able to create a new database</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_chinook_database">14.2. Chinook Database</h3>
+<div class="paragraph">
+<p>One of the datbases I use for doing SQL training is Chinook.</p>
+</div>
+<div class="paragraph">
+<p>You can us PHPMyAdmin to run the Chinook creation script for MySQL.</p>
+</div>
+<div class="paragraph">
+<p>The Chinook creation script can be found at this <a href="./documents/Create-Chinook-MySQL.sql" target="_new">Link</a></p>
+</div>
+<div class="paragraph">
+<p>After you import the script and run it you should see the Chinook database and it&#8217;s tables.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/chinook-database.png" alt="Imported">
+</div>
+<div class="title">Figure 17. Chinook Imported</div>
+</div>
+<div class="paragraph">
+<p>There is a SQL as a Second Language leanring guide that is based on the Chnook database.
+The learning guide is specific to Teradata but, most if will work with the MySQL version of Chinook.</p>
+</div>
+<div class="paragraph">
+<p>To view the SASL learning guide use the following <a href="https://sasl.pwc-lms.com" target="_blank" rel="noopener">link</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mywebsql">15. MyWebSQL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tool is a replacement for MyPHPAdmin which is a little dated.
+MyWebSQL requires Apache, PHP and MySQL to be installed and running.</p>
+</div>
+<div class="paragraph">
+<p>A copy of the ZIP file with the entire MyWebSQL can be found at this <a href="./document/mywebsql-3.7.zip" target="_blank" rel="noopener">link</a></p>
+</div>
+<div class="paragraph">
+<p>Using SUDO or SUDO MC unzip the ZIP file, the result should be a directory <code>mywebsql</code>.
+Copy the entire contents of the <code>mywebsql</code> to the <code>\var\www\html</code> folder.</p>
+</div>
+<div class="paragraph">
+<p>You should end up with something that looks like</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/after-mywebsql.png" alt="Transfer">
+</div>
+<div class="title">Figure 18. After MyWebSQL transfer</div>
+</div>
+<div class="paragraph">
+<p>To run MyWebSQL use the following URL</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>127.0.0.1/mywebsql</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should get a login screen, use the User created during the install of SQL Server User: jschust2 Pass: password
+as this creditentials provide the abaility to create databases.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/mywebsql-login.png" alt="Login">
+</div>
+<div class="title">Figure 19. MyWebSQL Login</div>
+</div>
+<div class="sect2">
+<h3 id="_sqlite_databases">15.1. SQLite databases</h3>
+<div class="paragraph">
+<p>To connect to and use SQLite databases, you will need to enable the configuration option in the config file <code>servers.php</code>.
+Edit the <code>servers.php</code> file in the config folder of MyWebSQL installation, and uncomment the configuration option for SQLite.
+You will also need to set the folder path correctly where you have saved your SQLite databases.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/MyWebSQL-sqlite-settings.png" alt="Settings">
+</div>
+<div class="title">Figure 20. MyWebSQL SQLite settings</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sqlite">16. SQLite</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>SQLite is a lightweight database software. It is a command line application.
+You must use the command line or SQLite API on other programming languages to use SQLite database.</p>
+</div>
+<div class="paragraph">
+<p>SQLite 3 is the latest version at the time of this writing.
+SQLite 3 is available in the official package repository of Ubuntu 18.04 LTS.</p>
+</div>
+<div class="listingblock">
+<div class="title">SQLite Instllation</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>sqlite3
+<span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> password <span class="k">for </span>jschust2:
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  adwaita-icon-theme at-spi2-core dconf-gsettings-backend dconf-service fontconfig glib-networking
+  glib-networking-common glib-networking-services gsettings-desktop-schemas gtk-update-icon-cache hicolor-icon-theme
+  humanity-icon-theme libatk-bridge2.0-0 libatk1.0-0 libatk1.0-data libatspi2.0-0 libavahi-client3
+  libavahi-common-data libavahi-common3 libcairo-gobject2 libcairo2 libcolord2 libcroco3 libcups2 libdatrie1 libdconf1
+  libepoxy0 libgail-common libgail18 libgdk-pixbuf2.0-0 libgdk-pixbuf2.0-bin libgdk-pixbuf2.0-common libgraphite2-3
+  libgtk-3-0 libgtk-3-bin libgtk-3-common libgtk2.0-0 libgtk2.0-bin libgtk2.0-common libharfbuzz0b libjson-glib-1.0-0
+  libjson-glib-1.0-common liblcms2-2 libnotify4 libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 libpixman-1-0
+  libproxy1v5 librest-0.7-0 librsvg2-2 librsvg2-common libsoup-gnome2.4-1 libsoup2.4-1 libthai-data libthai0
+  libwayland-client0 libwayland-cursor0 libwayland-egl1 libwxbase3.0-0v5 libwxgtk3.0-0v5 libxcb-render0 libxcb-shm0
+  libxcursor1 libxkbcommon0 notification-daemon ubuntu-mono
+Use <span class="s1">'sudo apt autoremove'</span> to remove them.
+Suggested packages:
+  sqlite3-doc
+The following NEW packages will be installed:
+  sqlite3
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 753 kB of archives.
+After this operation, 2481 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 sqlite3 amd64 3.22.0-1ubuntu0.1 <span class="o">[</span>753 kB]
+Fetched 753 kB <span class="k">in </span>3s <span class="o">(</span>235 kB/s<span class="o">)</span>
+Selecting previously unselected package sqlite3.
+<span class="o">(</span>Reading database ... 51403 files and directories currently installed.<span class="o">)</span>
+Preparing to unpack .../sqlite3_3.22.0-1ubuntu0.1_amd64.deb ...
+Unpacking sqlite3 <span class="o">(</span>3.22.0-1ubuntu0.1<span class="o">)</span> ...
+Setting up sqlite3 <span class="o">(</span>3.22.0-1ubuntu0.1<span class="o">)</span> ...
+Processing triggers <span class="k">for </span>man-db <span class="o">(</span>2.8.3-2ubuntu0.1<span class="o">)</span> ...
+jschust2@Adlantado:~<span class="err">$</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the SQLite database you want to connect to is <code>chinook</code>, in your current directory, then enter the following command</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sqlite3 chinook</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mongo">17. Mongo</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mongo is a NoSQL database that is very powerful and popular.</p>
+</div>
+<div class="paragraph">
+<p>To install Mongo use the following commands</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+cd ~
+sudo mkdir -p data/db</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is what the Mongo installation may look like.</p>
+</div>
+<div class="listingblock bash">
+<div class="title">Mongo Installationm</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo </span>apt-key adv <span class="nt">--keyserver</span> hkp://keyserver.ubuntu.com:80 <span class="nt">--recv</span> 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
+<span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> password <span class="k">for </span>jschust2:
+Executing: /tmp/apt-key-gpghome.VQIPQmmzQi/gpg.1.sh <span class="nt">--keyserver</span> hkp://keyserver.ubuntu.com:80 <span class="nt">--recv</span> 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
+gpg: key 58712A2291FA4AD5: public key <span class="s2">"MongoDB 3.6 Release Signing Key &lt;packaging@mongodb.com&gt;"</span> imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse"</span> | <span class="nb">sudo tee</span> /etc/apt/sources.list.d/mongodb-org-3.6.list
+deb <span class="o">[</span> <span class="nb">arch</span><span class="o">=</span>amd64,arm64 <span class="o">]</span> https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse
+jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo </span>apt-get update
+Hit:1 https://deb.nodesource.com/node_10.x bionic InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu bionic InRelease
+Get:3 http://security.ubuntu.com/ubuntu bionic-security InRelease <span class="o">[</span>88.7 kB]
+Get:4 http://archive.ubuntu.com/ubuntu bionic-updates InRelease <span class="o">[</span>88.7 kB]
+Ign:5 https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 InRelease
+Get:6 https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 Release <span class="o">[</span>3457 B]
+Get:7 https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 Release.gpg <span class="o">[</span>801 B]
+Get:8 http://archive.ubuntu.com/ubuntu bionic-backports InRelease <span class="o">[</span>74.6 kB]
+Get:9 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 Packages <span class="o">[</span>764 kB]
+Get:10 https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6/multiverse arm64 Packages <span class="o">[</span>10.7 kB]
+Get:11 https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6/multiverse amd64 Packages <span class="o">[</span>10.7 kB]
+Get:12 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 Packages <span class="o">[</span>1016 kB]
+Fetched 2058 kB <span class="k">in </span>5s <span class="o">(</span>418 kB/s<span class="o">)</span>
+Reading package lists... Done
+jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">-y</span> mongodb-org
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  adwaita-icon-theme at-spi2-core dconf-gsettings-backend dconf-service fontconfig glib-networking
+  glib-networking-common glib-networking-services gsettings-desktop-schemas gtk-update-icon-cache hicolor-icon-theme
+  humanity-icon-theme libatk-bridge2.0-0 libatk1.0-0 libatk1.0-data libatspi2.0-0 libavahi-client3
+  libavahi-common-data libavahi-common3 libcairo-gobject2 libcairo2 libcolord2 libcroco3 libcups2 libdatrie1 libdconf1
+  libepoxy0 libgail-common libgail18 libgdk-pixbuf2.0-0 libgdk-pixbuf2.0-bin libgdk-pixbuf2.0-common libgraphite2-3
+  libgtk-3-0 libgtk-3-bin libgtk-3-common libgtk2.0-0 libgtk2.0-bin libgtk2.0-common libharfbuzz0b libjson-glib-1.0-0
+  libjson-glib-1.0-common liblcms2-2 libnotify4 libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 libpixman-1-0
+  libproxy1v5 librest-0.7-0 librsvg2-2 librsvg2-common libsoup-gnome2.4-1 libsoup2.4-1 libthai-data libthai0
+  libwayland-client0 libwayland-cursor0 libwayland-egl1 libwxbase3.0-0v5 libwxgtk3.0-0v5 libxcb-render0 libxcb-shm0
+  libxcursor1 libxkbcommon0 notification-daemon ubuntu-mono
+... and a ton more ...
+Adding system user <span class="sb">`</span>mongodb<span class="s1">' (UID 112) ...
+Adding new user `mongodb'</span> <span class="o">(</span>UID 112<span class="o">)</span> with group <span class="sb">`</span>nogroup<span class="s1">' ...
+Not creating home directory `/home/mongodb'</span><span class="nb">.</span>
+Adding group <span class="sb">`</span>mongodb<span class="s1">' (GID 117) ...
+Done.
+Adding user `mongodb'</span> to group <span class="sb">`</span>mongodb<span class="s1">' ...
+Adding user mongodb to group mongodb
+Done.
+Setting up mongodb-org (3.6.14) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+jschust2@Adlantado:~$</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set up the area where the Mongo database will reside.</p>
+</div>
+<div class="listingblock bash">
+<div class="title">Mongo DB Setup</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">cd</span> ~
+jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">pwd</span>
+/home/jschust2
+jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">sudo mkdir</span> <span class="nt">-p</span> data/db
+jschust2@Adlantado:~<span class="err">$</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To start the Mongo Services use the following command, in a separate WSL window.
+ping 127.0.0.1
+  sudo mongod --dbpath ~/data/db --bind_ip 127.0.0.1</p>
+</div>
+<div class="paragraph">
+<p>To run the WSL Mongo Client use the following command</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>mongo</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This document is not meant to be a tutorial on Mongo but the following Mongo Cheat Sheet <a href="https://github.com/michaeltreat/Mongo_CheatSheet" target="_blank" rel="noopener">link</a> will be useful.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+There are some issues with which IP address to use to connect to Mongo.
+An update to this document will include the answer.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_git_version_control">18. GIT Version control</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>GIT the version control software used by most developers and GitHub should automatically installed with the Ubuntu 18.04.</p>
+</div>
+<div class="paragraph">
+<p>To verify that GIT is installed use the following command.</p>
+</div>
+<div class="listingblock">
+<div class="title">GIT Verification</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span>git <span class="nt">--version</span>
+git version 2.17.1</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_visual_studio_code">19. Visual Studio Code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>While VSCode <strong>can not</strong> run inside of the Ubuntu WSL instance however, an VSCodce extension makes using the WSL instance much easier.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/remote-wsl.png" alt="Remote - WSL Extension">
+</div>
+<div class="title">Figure 21. Remote - WSL Extension</div>
+</div>
+<div class="paragraph">
+<p>Create a project directory on Ubuntu WSL and start Visual Studio code with the following commands</p>
+</div>
+<div class="listingblock">
+<div class="title">Code Heading</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">mkdir </span>new-project
+jschust2@Adlantado:~<span class="nv">$ </span><span class="nb">cd </span>new-project
+jschust2@Adlantado:~/new-project<span class="nv">$ </span>code <span class="nb">.</span>
+Installing VS Code Server 6ab598523be7a800d7f3eb4d92d7ab9a66069390
+Downloading: 100%
+Unpacking: 100%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Visual Studio Code will open in the Ubuntu new project folder and allow you to edit and run Node code from there.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/vscode-wsl.png" alt="Visual Studio Code development">
+</div>
+<div class="title">Figure 22. Visual Studio Code development</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_shutdown_wsl">20. Shutdown WSL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sometimes it is necessary to Shutdown the Ubuntu WSL instance.
+Just closing the WSL window doesn&#8217;t close the Ubuntu instance.
+There are a few WSL shutdown methods that require using Windows Powershell.</p>
+</div>
+<div class="paragraph">
+<p>To shutdown the WSL Ubuntu instance from within Ubuntu use the following command.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>wslconfig.exe /t Ubuntu-18.04</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_backup_and_restore">21. Backup and Restore</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The entire Win 10 Ubuntu WSL can be saved, copied to another system and restored.
+The export file is in a <code>tar</code> format and can be quite large depending on how much additional software you have installed.</p>
+</div>
+<div class="paragraph">
+<p>To back up the Ubuntu 18.04 WSL instance us the following command</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>wsl --export Ubuntu-18.04 ubuntu.tar</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Copy the <code>tar</code> file to the other Windows 10 system and restore using the following command</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>wsl --import Ubuntu-18.04 C:\Users\jschust2\ubuntu C:\users\jschust2\download\ubuntu.tar</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The import and export features were added in the May 2019 Update—that’s Windows 10 version 1903.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_little_fun">22. A little fun</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>What installation would be complete with out a little&#8230;&#8203;</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl -s -L http://bit.ly/10hA8iC | bash</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>telnet towel.blinkenlights.nl</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo apt-get install cmatrix
+cmatrix</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl parrot.live</pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_document_history">23. Document History</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Document History</caption>
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Date</th>
+<th class="tableblock halign-left valign-top">Version</th>
+<th class="tableblock halign-left valign-top">Author</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10/30/2019</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">V2.1e</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JHRS Added MySQL update and SQLite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10/28/2019</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">V2.1d</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JHRS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mongo, GIT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10/27/2019</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">V2.1c</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JHRS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Added backup/restore and some fun</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10/25/2019</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 2.1e<br>
+Last updated 2019-11-01 15:48:43 -0400
+</div>
+</div>
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .cm {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cp {
+  color: #999999;
+  font-weight: bold;
+}
+pre.rouge .c1 {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cpf {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .ge {
+  color: #000000;
+  font-style: italic;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .kc {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kd {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kn {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kp {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kr {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kt {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .mf {
+  color: #009999;
+}
+pre.rouge .mh {
+  color: #009999;
+}
+pre.rouge .il {
+  color: #009999;
+}
+pre.rouge .mi {
+  color: #009999;
+}
+pre.rouge .mo {
+  color: #009999;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #009999;
+}
+pre.rouge .sb {
+  color: #d14;
+}
+pre.rouge .sc {
+  color: #d14;
+}
+pre.rouge .sd {
+  color: #d14;
+}
+pre.rouge .s2 {
+  color: #d14;
+}
+pre.rouge .se {
+  color: #d14;
+}
+pre.rouge .sh {
+  color: #d14;
+}
+pre.rouge .si {
+  color: #d14;
+}
+pre.rouge .sx {
+  color: #d14;
+}
+pre.rouge .sr {
+  color: #009926;
+}
+pre.rouge .s1 {
+  color: #d14;
+}
+pre.rouge .ss {
+  color: #990073;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .dl {
+  color: #d14;
+}
+pre.rouge .na {
+  color: #008080;
+}
+pre.rouge .bp {
+  color: #999999;
+}
+pre.rouge .nb {
+  color: #0086B3;
+}
+pre.rouge .nc {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #008080;
+}
+pre.rouge .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+pre.rouge .ni {
+  color: #800080;
+}
+pre.rouge .ne {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nl {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nn {
+  color: #555555;
+}
+pre.rouge .nt {
+  color: #000080;
+}
+pre.rouge .vc {
+  color: #008080;
+}
+pre.rouge .vg {
+  color: #008080;
+}
+pre.rouge .vi {
+  color: #008080;
+}
+pre.rouge .nv, pre.rouge .vm {
+  color: #008080;
+}
+pre.rouge .ow {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .o {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+pre.rouge {
+  background-color: #f8f8f8;
+}
+</style>
+</body>
+</html>
