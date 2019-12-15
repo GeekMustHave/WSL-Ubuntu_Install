@@ -1,7 +1,6 @@
 = Windows Subsystem for Linux (WSL)+++<br>+++Install & Customize Guide V2.1f
 John Schuster <John.schuster@PhoenixWorkgroup.com>
 v2.1h, 12/14/2019: Blog Article
-:Author: John HR Schuster
 :Company: GeekMustHave
 :toc: top
 :source-highlighter: rouge
@@ -16,15 +15,21 @@ v2.1h, 12/14/2019: Blog Article
 :icons: font
 :docdir: ./documents
 :github: https://github.com/GeekMustHave/WSL-Ubuntu_Install
+:web-ste: https://OpenStuff.pwc-lms.com/doco/Windows10-WSL-Ubuntu
+:keywords: WSL, Ubuntu, Node, ASCIIDoctor, Install WSL, Ubuntu on Windows, Apache, MySQL, Mongo
 :linkattrs:
 :seclinks:
+:description: How to install Ubuntu on Windows 10 using WSL and some common applications like \
+ASCIIDoctor, Node, Apache, MySQL, PHP and more.
 :title-logo-image: ./images/create-doco_gmh-blogArticle-cover.png
+:author: John HR Schuster
+:email: GeekMustHave@PhoenixWorkgroup.com
 
 image::thumbnail.png[align='center']
 
 Windows 10 can run an instance of Ubuntu 18.04 using the Windows Subsystem for Linux WSL.
 The Ubuntu instance is limited to a command line instance but, it can run most Ubuntu server packages including Apache, MySQL and Mongo.
-This is a very convenient way to run Ubuntu Linux instance with using any Virtual Machine.
+This is a very convenient way to run Ubuntu Linux instance without using any Virtual Machine.
 
 == Introduction
 
