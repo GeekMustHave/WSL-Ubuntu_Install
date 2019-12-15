@@ -1,11 +1,12 @@
-= Windows Subsystem for Linux (WSL)+++<br>+++Install and Customize Guide
+= Windows Subsystem for Linux (WSL)+++<br>+++Install & Customize Guide V2.1f
 John Schuster <John.schuster@PhoenixWorkgroup.com>
-v2.1e, 10/31/2019: Blog Article
+v2.1h, 12/14/2019: Blog Article
 :Author: John HR Schuster
 :Company: GeekMustHave
-:toc: left
+:toc: top
 :source-highlighter: rouge
 :source-language: bash
+:title-page:
 :toclevels: 4:
 :imagesdir: ./images
 :pagenums:
@@ -14,7 +15,7 @@ v2.1e, 10/31/2019: Blog Article
 :experimental:
 :icons: font
 :docdir: ./documents
-:github: https://github.com/GeekMustHave/Github repository
+:github: https://github.com/GeekMustHave/WSL-Ubuntu_Install
 :linkattrs:
 :seclinks:
 :title-logo-image: ./images/create-doco_gmh-blogArticle-cover.png
@@ -34,8 +35,22 @@ To download a PDF version of this document click on this link:./readme.pdf[ link
 
 == Getting Started
 
-The interface to Windows Subsystem for Linus (WSL) in the Terminal window.
+This is the instructions to interface to Windows Subsystem for Linux (WSL) in the Terminal window.
 This means there are some basic commands and utilities you need to use and customize it.
+
+=== Enable WSL on Windows
+
+To enable WSL on Windows 10 use the  Powershell opened in Admin MOde and run the following command.
+
+   Enable-Windows=Option-Feature -Online -feature Microsoft-windows-system-linux
+
+=== Enable WS Win 10
+
+To enable WSL on Windows 10 system use Powershell as Administrator and run the following command.
+
+  Enable-WindowsOptionFeature -Online -feature Microsoft-Windows-Subsystem-Linux
+
+
 
 === Installation
 
@@ -46,6 +61,25 @@ Do I need to mention, not to forget them?
 
 .Ubuntu on Microsoft Store
 image::ubuntu-store.png[Ubuntu on Microsoft Store, alt='Store', align='center']
+
+=== Alternative installation
+
+In some instances it may not be possible to download the Ubuntu instance from Microsoft's store.
+These instructions are the manual alternative method to download Ubuntu 18.04 WSL.
+
+Download the Ubuntu instance from this alternative site
+
+   https://docs.microsoft.com/en-us/windows/wsl/install-manual
+
+The file downloaded will be a *.appx file 
+( like CanonicalGroupLimited.Ubuntu18.04onWindows_1804.2018.817.0_x64__79rhkp1fndgsc (1).Appx) 
+
+Rename this stupid long name and change the extension to something like `ubuntu.zip`.
+
+Now unzip the `ubuntu.zip` into a new folder.
+
+Then run the `ubuntu.exe` file.
+
 
 To start Ubuntu, use `ubuntu1804` on the command-line prompt (cmd.exe), or click on the Ubuntu tile in the Start Menu.
  
@@ -67,7 +101,7 @@ Reading state information... Done
 ----
 
 The second thing you should do is to `Upgrade` the Ubuntu installation.
-Be prepared as this will take some time to complete.
+Be prepared as this will take quite some time to complete.
 
 About half way through the `upgrade` you will asked if you want have services automatically restarted, anwser `Yes`.
 
@@ -110,7 +144,7 @@ Do you want to continue? [Y/n] y
 
 == File Explorer (Midnight Commander)
 
-Because I don't like to type in Linux command to change directory or launch commands I reply on a File Explorer called Midmight Commander.
+Because I don't like to type in Linux command to change directory or launch commands I rely on a File Explorer called Midmight Commander.
 
 It is a dual pane file explorer with function key control over copy, editing and managing the Ubuntu files.
 
@@ -142,14 +176,14 @@ The Midnight Commander user interface looks like
 .Midnight Command UI
 image::mc.png[Midnight Command UI, alt='MC', align='center']
 
-The first time you use the editor I use the Nano editor.
+The first time you use the editor I suggest you use Nano editor.
  
 == Customize startup (.bashrc)
 
 The `.bashrc` is the startup file for the Ubuntu command line environment environment.
 By making some simple changed to this file you can make the interface much more efficient and cute.
 
-Using MC `edit` the file `.bashrc`
+Using MC, in SUDO mode, to edit the file `.bashrc`
 
 Change the prompt to colored.
 
@@ -168,9 +202,9 @@ Then save the `.bashrc` file, kbd:[Ctrl-O], kbd:[Enter]  followed by kbd:[Ctrl-X
 When the Ubuntu environment starts up I like to see information about this instance of Ubuntu.
 Information like user name, Ubuntu version, type CPU and memeory.
 
-The `screenfetch` command is good for this and needs to be installed.
+The `screenfetch` command is good for this and should be installed.
 
-Please download the latest script revision from Github. The version installed with `apt` is outdated.
+NOTE: Please download the latest script revision from Github. The version installed with `apt` is outdated.
 
 The commands to do the Screenfetch install are
 
@@ -181,7 +215,7 @@ wget https://raw.githubusercontent.com/KittyKatt/screenFetch/master/screenfetch-
 chmod +x screenfetch-dev <2>
 sudo mv screenfetch-dev /usr/bin/screenfetch <3>
 ----
-<1> Download the correct Screenfetch from GiyHub
+<1> Download the correct Screenfetch from GitHub
 <2> Make that new file executable
 <3> Move and rename the new command to the system command folder `/usr/bin`
 
@@ -214,10 +248,17 @@ To test the new `screenfetch` command
 
 .Screenfetch Example
 image::screenfetch-example.png[Screenfetch Example, align='center']
- 
 
 
-Add this new command to the `.bashrc` file by opening it and adding the command and saving the file.
+Add this new lines to the `.bashrc` file, using `sudo mc` and adding the following lines and saving the `.bashrc` file.  See example below.
+
+..bashrc updates
+[source,bash]
+----
+# --- Screenfetch - System information
+clear
+screenfetch
+----
 
 .Edit .bashrc
 image::screenfetch-install.png[Edit .bashrc, alt='Bashrc', align='center']
@@ -297,7 +338,7 @@ jschust2@Adlantado:~/new-project$
 
 == Dialog (Menus)
 
-Because this Ubuntu instance is command line only it would be nice to have a mneu system that looks almost like a GUI.
+Because this Ubuntu instance is command line only it would be nice to have a menu system that looks almost like a GUI.
 
 The utility for this is called `dialog` and is used in bash shell scripts to help make great looking menus.
 
@@ -344,10 +385,10 @@ Create a new file named `tmenu.sh` and copy the following text into it.
 .tmenu.sh Dialog script
 [source,bash]
 ----
-include::./documents/tmenu.sh[]
+include::./tmenu.sh[]
 ----
 
-To download the `tmenu.sh` click on this link:./documents/tmenu.sh[ link]
+To download the `tmenu.sh` click on this link:./tmenu.sh[ link]
 
 After the file has been created it must be make executagle with the command
 
@@ -362,10 +403,21 @@ Then to run the Bash shell script use the command
 
 An alias is custom command that you define in Ubuntu.
 
-The Dialog example above is only available from the `home` directory and it's name `tmenu.sh` is unclear.
+The Dialog example above is only available from the `home` directory and it's name `tmenu.sh`. 
 It would be better if this Dialog shell script could be executed from anywhere using `menu`.
 
-Open the `.bashrc` file and edit it. Add the following lines at the end of the file.
+Open the `.bashrc` file, using `sudo mc` and edit it. Add the following lines at the end of the file.
+
+
+.Alias for `Menu`
+[source,bash]
+----
+# --- Alias for Menu to call ~/tmenu.sh
+alias menu='~/tmenu.sh'
+----
+
+
+
 
 .Alias for tmenu.sh
 image::alias-tmenu.png[Alias for tmenu.sh, alt='Alias', align='center']
@@ -376,6 +428,8 @@ Save the file and restart the bash environment by entering the following command
 
 Then the `tmenu.sh` can be run from any directory by entering `menu`   .
 
+
+<<<<
 
 == ASCIIdoctor 
 
@@ -390,9 +444,9 @@ The installation of `ASCIIDoctor` will include the installation of Ruby and GEM 
 
   
 .ASCIIDoctor installation
-[source,bash]
+[source,bash,linenums]
 ----
-jschust2@Adlantado:~$ sudo apt install asciidoctor
+jschust2@Adlantado:~$ sudo apt install asciidoctor 
 [sudo] password for jschust2:
 Reading package lists... Done
 Building dependency tree
@@ -455,7 +509,7 @@ This document was not meant to be a tutorial on how to create ASCIIDoctor files,
 
 To test the ASCIIDoctor Toolchain there is a `sample.adoc` file with a small example of ADOC foramtted files
 
-To download the `sample.adoc` file click on the following link link:./documents/sample.adoc[ link, winodw="_Blank"]
+To download the `sample.adoc` file click on the following link link:./sample.adoc[ link, winodw="_Blank"]
 
 Using the Nano text editor create a file called `sample.adoc` and paste the content of the file shown above into it and save the file.
 
@@ -482,7 +536,7 @@ The PDF generated file `sample.pdf`  can be opened with a PDF Viewer or some bro
 image::adoc-pdf.png[ASCIIDoctor PDF, align='center']
  
 
-== Windows 10 Mounts - Ubuntu
+== Windows 10 File System Mounts - Ubuntu
 
 All of the Windows Drives are automatically mounted when Ubuntu is started.  
 
@@ -493,6 +547,23 @@ The easiest way to move or copy files between Windows 10 and the Ubuntu instance
 
 .Windows 10 - Ubuntu transfer
 image::win10-ubuntu.png[Windows 10 - Ubuntu transfer, align='center']
+
+== Windows 10 Networked Drice Mounts
+
+There may be network drives that you have mounted on Windows 10.  (IE. \\ws-ltb84b\share is mounted as drice `H:`)
+
+Using the Ubuntu terminal enter the following commands.
+
+.Mount Win 10 Network Drive
+[source,bash]
+----
+   mkdir /mnt/h  <1>
+   sudo mount -t drvfs h: /mnt/h  <2>
+----
+<1> Create a place for Linux to Map files to
+<2> Mount the drive file system `drvfs` using the Winows 10 `H:` drive
+and map to `/mnt/h`
+
  
 == Node installation
 
@@ -550,6 +621,28 @@ jschust2@Adlantado:~$ npm -v
 6.11.3
 jschust2@Adlantado:~$
 ----
+
+
+=== Mounting Networked Windows 10 drives in WSL
+
+Networked Windows drives may *not* automatically `mounted` by the WSL.
+
+To add a Networked Windows 10 drive (ie H:) follow the following commands in WSL.
+
+Using `sudo` mode create a new directory in th `/mnt` folder
+
+ sudo mkdir /mnt/h
+
+To mount H: to the new folder run the following command.
+
+   sudo mount -t drvfs H: /mnt/h
+
+To make this mount persistant where it will be available everytime Ubuntu WSL is started.
+
+Then you can change to that Network drive by entering the folling command.
+
+   cd /mnt/h
+
 
 
 == Apache Web Server
@@ -701,8 +794,23 @@ Query OK, 0 rows affected (0.01 sec)
 mysql>               
 ----
 
-WARNING: There are some issues with which IP address to use to connect to MySQL.  
-An update to this document will include the answer.
+To connect to MySQL with the new user use the following command.
+
+   mysql -u jschust2 -ppassword
+
+
+
+=== Remote MySQL connections
+
+The Windows 10 is considered a `remote` system to the WSL.
+
+Here is an example of connecting to the Ubuntu WSL instance of MySQL from the Windows 10.
+
+Notice the IP address is `12q7.0.0.1`, user is `jschust2`, password is `password`.
+
+.Remote MySQL
+image::remote-mysql.png[Remote MySQL, alt='MySQL', align='center']
+ 
 
 
 
@@ -772,6 +880,34 @@ Reading package lists... Done
 jschust2@Adlantado:~$
 ----
 
+=== Validate PHP
+
+PHP shuold be launched automatically when the Apache service is started.
+
+To create a method to verify this use SUDO MC and edit the `\var\www\html\info.php` file, if it doesn't exist then create one.
+
+Enter the following PHP code into the `info.php` file
+
+.info.php code
+[source,php]
+----
+<?php
+phpinfo();
+?>
+----
+
+To perform this PHP validation use a browser and go to the following URL
+
+  127.0.0.1/info.php
+
+.PHP Info page
+image::php-info.png[PHP Info page, alt='Info', align='center']
+ 
+The `info` page is very long and has all of the config parameter for the PHP instance running.  
+
+
+
+
 === myPHPAdmin
 
 The `myPHPAdmin` is a web interface to the PHP and my SQL environment.
@@ -787,15 +923,15 @@ image::myphpadmin-apache.png[myPHPAdmin Server, alt='Server', align='center']
  
 Make sure the MySQL Server has been started, see steps below for this process.
 
-.MySQLAdmin Database
+.myPHPAdmin Database
 image::myPhpAdmin-db.png[MySQLAdmin Database, alt='Database', align='center']
  
-.mySQLAdmin Password
+.myPHPAdmin Password
 image::mySQLAdmin-password.png[mySQLAdmin Password, alt='Password', align='center']
 
-To access mySQLAdmin make sure that the Appache Service is tuened on then open a browser and enter the following URL
+To access myPHPAdmin make sure that the Appache Service is tuened on then open a browser and enter the following URL
 
-      127.0.0.1/mySQLAdmin
+      127.0.0.1/myPHPAdmin
 
 The User id we should use is the one created in the MySQL install `jschust2` and the password you entered in the configutation screen above.
 In my case it is `password`.  
@@ -807,7 +943,7 @@ One of the datbases I use for doing SQL training is Chinook.
 
 You can us PHPMyAdmin to run the Chinook creation script for MySQL.
 
-The Chinook creation script can be found at this link:./documents/Create-Chinook-MySQL.sql[ Link, window="_new"]
+The Chinook creation script can be found at this link:./Create-Chinook-MySQL.sql[ Link, window="_new"]
 
 After you import the script and run it you should see the Chinook database and it's tables.
 
@@ -825,8 +961,9 @@ To view the SASL learning guide use the following link:https://sasl.pwc-lms.com[
 This tool is a replacement for MyPHPAdmin which is a little dated.
 MyWebSQL requires Apache, PHP and MySQL to be installed and running.
 
+NOTE: This program is difficult to find so a copy is included in this document
 
-A copy of the ZIP file with the entire MyWebSQL can be found at this link:./documents/mywebsql-3.7.zip[ link,window='_blank']
+A copy of the ZIP file with the entire MyWebSQL can be found at this link:mywebsql-3.7.zip[ link,window='_blank']
 
 Using SUDO or SUDO MC unzip the ZIP file, the result should be a directory `mywebsql`.
 Copy the entire contents of the `mywebsql` to the `\var\www\html` folder.
@@ -854,6 +991,18 @@ You will also need to set the folder path correctly where you have saved your SQ
 
 .MyWebSQL SQLite settings
 image::MyWebSQL-sqlite-settings.png[MyWebSQL SQLite settings, alt='Settings', align='center']
+
+The `phi.ini` file needs to be edited, its location can be found by using the `127.0.0.1/info.php` in a browser.
+
+.php.ini location
+image::php.ini-location.png[php.ini location, alt='location', align='center']
+ 
+
+ 
+The `php.ini` file needs to have a few changes to uncomment the SQLite driver lines.
+
+.php.ini for SQLite
+image::php-sqlite.png[php.ini for SQLite, alt='ini', align='center']
  
 
 
@@ -909,6 +1058,8 @@ If the SQLite database you want to connect to is `chinook`, in your current dire
 
   sqlite3 chinook
 
+
+NOTE: If you use the SQLite3 CLI and want to exit use the `.quit` command.
 
 == Mongo
 
@@ -1066,6 +1217,8 @@ To shutdown the WSL Ubuntu instance from within Ubuntu use the following command
 The entire Win 10 Ubuntu WSL can be saved, copied to another system and restored.
 The export file is in a `tar` format and can be quite large depending on how much additional software you have installed.
 
+NOTE: The following Export (Backup) and Import (Restore) require Windows 10 to be at Release 1903 or better.
+
 To back up the Ubuntu 18.04 WSL instance us the following command
 
   wsl --export Ubuntu-18.04 ubuntu.tar
@@ -1097,7 +1250,11 @@ What installation would be complete with out a little...
 [cols='2,2,2,6' options='header']
 |===
 | Date  | Version | Author | Description
-| 10/30/2019 | V2.1e | JHRS Added MySQL update and SQLite
+| 12/14/2019 | V2.1h | JHRS | Updated from new install,
+elminated the `documents` directory
+| 11/14/2019 | V2.1g | JHRS | Updated enable WSL, backup
+| 11/12/2019 | V2.1f | JHRS | Updated alias and corrections
+| 10/30/2019 | V2.1e | JHRS | Added MySQL update and SQLite
 | 10/28/2019  | V2.1d | JHRS | Mongo, GIT
 | 10/27/2019 | V2.1c | JHRS | Added backup/restore and some fun
 | 10/25/2019 | V2.1b | JHRS |  Initial version
